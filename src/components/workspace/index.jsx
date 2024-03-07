@@ -10,7 +10,7 @@ import {
   useWorkspaceContext,
 } from "../../context/workspaceProvider";
 import ReactGridLayout from "react-grid-layout";
-import "./styles.css";
+
 
 // import { Resizable, ResizableBox } from "react-resizable";
 // import "react-resizable/css/styles.css"; // Import the styles for react-resizable
