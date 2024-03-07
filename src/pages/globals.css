@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: black;
+  background: #f4f8fc;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+.shape{
+  background-image: url('../assets/workspace/shapes.png');
+  background-size:contain; /* or "contain" depending on your preference */
+  background-repeat: no-repeat;
+  background-position:  center;
+  height: 5.5rem;
+}
+.banr-sec {
+  background-image: url("../assets/banner.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 348px;
+  background-size: 100% 92%;
+}
+
+[type="text"],
+input:where(:not([type])),
+[type="email"],
+[type="url"],
+[type="password"],
+[type="number"],
+[type="date"],
+[type="datetime-local"],
+[type="month"],
+[type="search"],
+[type="tel"],
+[type="time"],
+[type="week"],
+[multiple],
+textarea,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* background-color: #fff; */
+  /* border-color: rgb(var(--gray-500) / var(--tw-border-opacity, 1)); */
+  /* border-width: 1px; */
+  /* border-radius: 0px; */
+  padding-top: 0.5rem;
+  padding-right: 0.75rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  --tw-shadow: 0 0 #0000;
+  outline: none !important;
+}
+
+[type="text"] {
+  outline: none !important;
+}
+
+/* For WebKit browsers */
+::-webkit-scrollbar {
+  width: 5px; /* Adjust the width as needed */
+}
+
+/* For Firefox */
+::-moz-scrollbar {
+  width: 5px; /* Adjust the width as needed */
+}
+
+/* For IE and Edge */
+::-ms-scrollbar {
+  width: 5px; /* Adjust the width as needed */
+}
+
+/* For all browsers */
+::-webkit-scrollbar-track {
+  background-color: #f4f8fc; /* Color of the scrollbar thumb */
+  border-radius: 5px; /* Radius of the scrollbar thumb */
+  height: 10px;
+  margin: 15px 0;
+}
+
+/* For all browsers */
+::-webkit-scrollbar-thumb {
+  background-color: #2b8cff; /* Color of the scrollbar thumb */
+  border-radius: 5px; /* Radius of the scrollbar thumb */
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  height: 10px !important; /* Set your desired height here */
+  width: 10px !important; /* Set your desired height here */
+}
+/* Optional: Hover effects for the thumb */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Hover color */
+}
+
+.visual_assests:hover .eye_icons {
+  color: white !important;
+}
+
+/* .visual_assests.active .eye_icons {
+  color: black !important;
+} */
+.eye_icons{
+  width: 26px;
+  height: 26px;
+}
+.react-flow__node {
+  height: 30px;
+  /* width: 100px; */
+  background-color: aliceblue;
+  width: fit-content;
+  
+}
+.react-flow__node .inputWrapper {
+  display: flex;
+  height: 30px;
+}
+.react-flow__node .inputWrapper .dragHandle {
+  width: 50px;
+  height: 50px;
+}
+
+
+.scrollable-div {
+ /* Width ko set karein jaise aap chahen */
+  height: 220px; /* Height ko set karein jaise aap chahen */
+  overflow-x: auto; /* Y-axis par scroll hone dein */
+}
+
+/* Scrollbar ko customize karein */
+.scrollable-div::-webkit-scrollbar {
+  height: 5px; /* Scroll bar ka width badalein */
+}
+
+.scrollable-div::-webkit-scrollbar-thumb {
+  background-color: #2b8cff; /* Scroll bar ka color badalein */
+}
+
+
+.css-13cymwt-control{
+  background-color: #F4F8FC !important;
+  border-radius: 10px !important;
+}

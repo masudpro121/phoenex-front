@@ -140,18 +140,12 @@ export default function Header() {
   const windowScroll = useWindowScroll();
 
   const {
-    whiteBoard,
-    setWhiteBoard,
-    notesBoard,
-    setNotesBoard,
-    instantEvaluation,
-    setInstantEvaluation,
-    evaluationMatrix,
-    setEvaluationMatrix,
-    chats,
-    setChats,
-    sidebar,
-    setSidebar,
+    whiteBoard, setWhiteBoard,
+    notesBoard, setNotesBoard,
+    instantEvaluation, setInstantEvaluation,
+    evaluationMatrix, setEvaluationMatrix,
+    chats, setChats,
+    sidebar, setSidebar,
   } = useWorkspaceContext();
 
   const inputRef = useRef();
