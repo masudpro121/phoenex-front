@@ -10,7 +10,7 @@ import {
   useWorkspaceContext,
 } from "../../context/workspaceProvider";
 import ReactGridLayout from "react-grid-layout";
-
+// import "./styles.css";
 
 // import { Resizable, ResizableBox } from "react-resizable";
 // import "react-resizable/css/styles.css"; // Import the styles for react-resizable
@@ -33,7 +33,7 @@ function Workspace() {
     sidebar,
   } = useWorkspaceContext();
 
-  const containerRef = useRef(null);
+  const mainContainerRef = useRef(null);
   const [containerSize, setContainerSize] = useState({
     width: 0,
     height: 0,
@@ -50,7 +50,7 @@ function Workspace() {
   useEffect(() => {
     let observer;
     const handleResize = () => {
-      const container = containerRef.current;
+      const container = mainContainerRef.current;
       if (container) {
         const { width, height } = container.getBoundingClientRect();
         setContainerSize({ width, height });
@@ -59,7 +59,7 @@ function Workspace() {
 
     if (typeof window !== "undefined") {
       observer = new ResizeObserver(handleResize);
-      const container = containerRef.current;
+      const container = mainContainerRef.current;
       if (container) {
         observer.observe(container);
         // Call it once to initialize state
@@ -133,17 +133,17 @@ function Workspace() {
     separatorProps: verticalDragBarProps,
   } = useResizable({
     axis: "x",
-    initial: 200,
+    initial: 300,
     min: 50,
-    max: 450,
+    max: 400,
     reverse: true,
   });
 
-  // console.log("height==>", terminalH);
+  console.log("container size==>", containerSize);
   return (
     <>
       <div className="relative flex flex-col gap-2 font-mono color-white  w-full h-full whitespace-nowrap">
-        <div className="flex grow gap-2 h-full w-full">
+        <div className="flex grow gap-2 h-full w-full" ref={mainContainerRef}>
           <div className="flex flex-col grow gap-2 w-full h-full">
             <div className="flex grow h-full max-w-full">
               {" "}
@@ -161,10 +161,13 @@ function Workspace() {
                   {...horizontalDragBarProps}
                 />
                 <div
-                  className={`flex  w-full ${
+                  className={`flex w-full ${
                     isHorizontalDragging && "dragging"
                   }`}
-                  style={{ height: horizontalH }}
+                  style={{
+                    height: horizontalH,
+                    width: containerSize.width - verticalW - 20,
+                  }}
                 >
                   <div className="h-full w-full flex gap-4">
                     {instantEvaluation && (
@@ -205,9 +208,9 @@ function Workspace() {
               >
                 <div
                   className={` h-full w-full flex flex-col gap-4 `}
-                  style={{
-                    width: notesBoard || chats ? "100%" : 0,
-                  }}
+                  // style={{
+                  //   width: notesBoard || chats ? "100%" : 0,
+                  // }}
                 >
                   {notesBoard && (
                     <div
