@@ -431,6 +431,529 @@ const templates2 = [
       },
     ],
   },
+  {
+    label: "Universal Self Learning Module",
+    icon: <FaEye className="eye_icons" />,
+    options: [
+      {
+        label: "Book to Comics to  Real World  Application Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Book to Comics Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Book to Video Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Knowledge Summary Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Concept Mapping  Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Mind Mapping Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Study Measurement Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      }
+    ],
+  },
+  {
+    label: "Understanding Acceleration Module",
+    icon: <FaEye className="eye_icons" />,
+    options: [
+      {
+        label: "Socratic Questioning Worksheets",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Debate Cards",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Comparative Analysis",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Concept Maps",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Argument Diagrams",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Case Studies",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Critical Book Reviews",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Critical Reading Journals",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Analytical Storyboards",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Ethical Dilemma  Scenarios",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Text to Mind Visualization",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+    ],
+  },
+  {
+    label: "Special Training Modules",
+    icon: <FaEye className="eye_icons" />,
+    options: [
+      {
+        label: "Test and Exams Preparation Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Soeed Reading for Reading Comprehension Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "How to Read a Book with Four Methods",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Powerpoint Slides Skimming and  Logical Reasoning Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Memory Techniques for  Test Success Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Critical Thinking in Exam Answers Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Effective  Note-Taking Strategies Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Problem-Solving Techniques Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      }
+    ],
+  },
+  {
+    label: "Logical Writting Module",
+    icon: <FaEye className="eye_icons" />,
+    options: [
+      {
+        label: "Essay Writing Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Blogging Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Creative Writing Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Editorial Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Scripting Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Writing Workshops Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Research Paper Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Business Proposal Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Journalism  Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Technical  Writing Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+    ],
+  },
+  {
+    label: "Knowledge to Action Module",
+    icon: <FaEye className="eye_icons" />,
+    options: [
+      {
+        label: "Project Based Learning Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Presentation Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Problem Solving Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Entrepreneurship Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Volunteer and Outreach Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Innovation Challenge Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "A.I. Based Internship and Apprenticeship Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Research Projects Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Policy Advocacy and Change Initiatives Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Start-Up Incubator  and Innovation Lab Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+    ],
+  },
+  {
+    label: "Knowledge Architect Module",
+    icon: <FaEye className="eye_icons" />,
+    options: [
+      {
+        label: "Socrates Conversaional  Learning",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Mind Process and Knowledge Visualization",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Content Study-toMind Process Mapping",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Concurrent Multiple Dimensions Decision Making Training",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Algorithmic Structural Analysis for  Contents with Object-Oriented Abstraction Learning Method",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Solution Architecture Design Training Critical Thinkingin Exam Answer",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Thought Experiemnt and Hypothetical Scenario Analysis",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Mindfulness and Cognitive Flexibility Development",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Decision Trees and Logical Frameworks",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Complex Systems Thinking  and Mapping",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+    ],
+  },
+  {
+    label: "Creative & Design Thinking Module",
+    icon: <FaEye className="eye_icons" />,
+    options: [
+      {
+        label: "Design Thinking Workshops",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "User-Centered Design Projects",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Visual Storytelling  Lego",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Innovation Labs and Hackathon",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Design Thinking for Business",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Creative Ideation Sessions",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Design Sprints",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Design Critique and Feedback",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Human-Centered Product Design",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Design Challenges and Competitions",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+    ],
+  },
+  {
+    label: "Memory Training  Module",
+    icon: <FaEye className="eye_icons" />,
+    options: [
+      {
+        label: "Visual",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Mind Maps",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Visual Aids (Diagrams, Charts, Illustrations)",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Flashcards",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Color Coding",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Keyword  Mnemonics",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Imagery",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Audio",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Audio Summaries",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Podcasts",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Writing",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Summary Notes",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Anki Flashcards",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Interactive Quizzes",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Video Summaies",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Narrative Storytelling",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Memory Mindset Training",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Emotional Connections",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Spacced Repetition Notes",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Teach Others",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Mindful Reading",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Role-Playing",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Gamification",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Physical Engagement",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Kinesthetic Learning",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Handwritten Summaries",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Social Interaction",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Study Groups",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      },
+      {
+        label: "Peer Reviews",
+        route: "/workspace",
+        icon: <FaEye className="eye_icons" />,
+      }
+    ],
+  },
   
 ];
 
@@ -556,7 +1079,6 @@ export default function Sidebar({ className }) {
   };
 
   const mytemplates = module == "learning-assets" ? templates :  templates2
-  console.log(mytemplates, 'mytemp');
   return (
     <aside
       className={cn(

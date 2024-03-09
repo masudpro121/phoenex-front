@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 // Create context
 export const WorkspaceContext = createContext({});
@@ -23,7 +23,15 @@ export const WorkspaceProvider = ({ children }) => {
   const [evaluationMatrix, setEvaluationMatrix] = useState(true);
   const [chats, setChats] = useState(true);
   const [sidebar, setSidebar] = useState(true);
-
+  const [brandy, setBrandy] = useState({})
+  const [selectedWord, setSelectedWord] = useState("")
+  const [comicImages, setComicImages] = useState([])
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  useEffect(()=>{
+    const mydata = require("@/data/brandy/brandy.json")
+    setBrandy(mydata)
+    setSelectedWord(localStorage.getItem("word") || "")
+  },[])
   return (
     <WorkspaceContext.Provider
       value={{
@@ -39,6 +47,10 @@ export const WorkspaceProvider = ({ children }) => {
         setChats,
         sidebar,
         setSidebar,
+        brandy, setBrandy,
+        selectedWord, setSelectedWord,
+        comicImages, setComicImages,
+        isLoggedIn, setIsLoggedIn
       }}
     >
       {children}
