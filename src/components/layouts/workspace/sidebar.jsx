@@ -403,8 +403,8 @@ const templates2 = [
     icon: <FaEye className="eye_icons" />,
     options: [
       {
-        label: "Visual Vocabulary",
-        route: "/workspace",
+        label: "Book to Comic",
+        route: "/workspace/book-to-comic",
         icon: <FaEye className="eye_icons" />,
       },
     ],

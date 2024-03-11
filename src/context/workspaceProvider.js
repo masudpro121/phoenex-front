@@ -27,6 +27,7 @@ export const WorkspaceProvider = ({ children }) => {
   const [selectedWord, setSelectedWord] = useState("")
   const [comicImages, setComicImages] = useState([])
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [namespace, setNamespace] = useState("");
   useEffect(()=>{
     const mydata = require("@/data/brandy/brandy.json")
     setBrandy(mydata)
@@ -50,7 +51,9 @@ export const WorkspaceProvider = ({ children }) => {
         brandy, setBrandy,
         selectedWord, setSelectedWord,
         comicImages, setComicImages,
-        isLoggedIn, setIsLoggedIn
+        isLoggedIn, setIsLoggedIn,
+        namespace, setNamespace
+        
       }}
     >
       {children}
