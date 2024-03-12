@@ -5,17 +5,13 @@ import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
-import { IoDocumentAttach } from "react-icons/io5";
-import { MdKeyboardVoice } from "react-icons/md";
-
-import { FaFilePdf } from "react-icons/fa";
-
-import avatar1 from "@/assets/comics/uploadContent/avatar1.png";
+import avatar1 from "@/assets/comics/uploadContent/avatar3.png";
 import avatar5 from "@/assets/comics/uploadContent/avatar5.png";
 import avatar7 from "@/assets/comics/uploadContent/avatar7.png";
-import avatar9 from "@/assets/comics/uploadContent/avatar9.png";
+import avatar9 from "@/assets/comics/uploadContent/avatar8.png";
 import avatar6 from "@/assets/comics/uploadContent/avatar6.png";
-import avatar8 from "@/assets/comics/uploadContent/avatar8.png";
+import avatar8 from "@/assets/comics/uploadContent/avatar4.png";
+
 import { useWorkspaceContext } from "@/context/workspaceProvider";
 import Link from "next/link";
 
@@ -25,102 +21,114 @@ const items = [
     panels: "46",
     style: "Vibrant Cartoon",
     image: avatar1,
+    titles: ["Whimsical Wonders ", "Mystical Creatures' Realm", "Confrontation"],
   },
   {
     topic: "Space Odyssey",
     panels: "32",
     style: "Sci-Fi Futuristic",
     image: avatar5,
+    titles: ["Galactic Frontier", "Journey Beyond Stars", "Cosmic Conundrums", "Adventures"],
   },
   {
     topic: "Mystery Mansion",
     panels: "38    ",
     style: "Dark Noir",
     image: avatar7,
+    titles: ["Whispers in Shadows", "Noir Enigma", "Sinister Secrets", "Haunted Chronicles"],
   },
   {
     topic: "Time Travel Chronicles",
     panels: "20",
     style: "Retro Pixel Art",
     image: avatar9,
+    titles: ["Pixelated Time Warp", "Chronicles of Time"],
   },
   {
     topic: "Magical Quest",
     panels: "30",
     style: "Whimsical Fantasy",
     image: avatar6,
+    titles: ["Fantasy Fables", "Magical Adventures"],
   },
   {
     topic: "Superhero Showdown",
     panels: "45",
     style: "Bold Comic Book",
     image: avatar8,
+    titles: ["Heroic Clash", "Epic Showdown"],
   },
   {
     topic: "Adventure in Wonderland",
     panels: "46",
     style: "Vibrant Cartoon",
     image: avatar1,
+    titles: ["Whimsical Wonders ", "Mystical Creatures' Realm", "Confrontation"],
   },
   {
     topic: "Space Odyssey",
     panels: "32",
     style: "Sci-Fi Futuristic",
     image: avatar5,
+    titles: ["Galactic Frontier", "Journey Beyond Stars", "Cosmic Conundrums", "Adventures"],
   },
   {
     topic: "Mystery Mansion",
     panels: "38    ",
     style: "Dark Noir",
     image: avatar7,
+    titles: ["Whispers in Shadows", "Noir Enigma", "Sinister Secrets", "Haunted Chronicles"],
   },
 ];
 
-function UploadContentPage() {
+function ChooseTemplatePage() {
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
+  const [template, setTemplate] = useState();
+  const [original, setOriginal] = useState(true);
   const { sidebar, setSidebar } = useWorkspaceContext();
 
   return (
     <div className="bg-[white] flex flex-col p-4 w-full rounded-3xl h-full">
-      <div className="w-full shape items-center justify-center text-center mb-3 ">
-        <h1 className="text-[28px] font-bold mb-3">Upload Content</h1>
-        <label className="text-[18px] ">
-          Experience the Next Level of Storytelling - Be Your Own Illustrator
-        </label>
+      <div className="w-full justify-between flex text-[16px] font-semibold border-b-2 pb-4 mb-4 border-[#D8D8D8]">
+        <div className="w-[75%] flex items-center">
+          <button className=" border-[2px] bg-[#F4F8FC] text-[#2B8CFF] border-[#2B8CFF] rounded-2xl w-[15%] py-2">
+            Story
+          </button>
+          <div className="border-4 h-2 w-[5%] bg-[#2B8CFF] border-[#2B8CFF]"></div>
+          <button className=" border-[2px] bg-[#F4F8FC] text-[#2B8CFF] border-[#2B8CFF] rounded-2xl w-[15%] py-2">
+            Choose Template
+          </button>
+          <div className="border-4 h-2 w-[5%] bg-[#F4F8FC] border-[#F4F8FC]"></div>
+          <button className=" border-[2px] bg-[#F4F8FC] text-[#9E9E9E] border-[#F4F8FC] rounded-2xl w-[15%] py-2">
+            Character Design
+          </button>
+          <div className="border-4 h-2 w-[5%] bg-[#F4F8FC] border-[#F4F8FC]"></div>
+          <button className=" border-[2px] bg-[#F4F8FC] text-[#9E9E9E] border-[#F4F8FC] rounded-2xl w-[15%] py-2">
+            Panel
+          </button>
+          <div className="border-4 h-2 w-[5%] bg-[#F4F8FC] border-[#F4F8FC]"></div>
+          <button className=" border-[2px] bg-[#F4F8FC] text-[#9E9E9E] border-[#F4F8FC] rounded-2xl w-[15%] py-2">
+            Editor
+          </button>
+        </div>
+        <div className="w-[20%] flex gap-3 ">
+          <button className=" border-[4px] bg-white text-[#D8D8D8] border-[#F4F8FC] rounded-2xl w-[50%] py-2">
+            Skip
+          </button>
+          <button className=" border-[4px] bg-[#2B8CFF] text-white border-[#F4F8FC] rounded-2xl w-[50%] py-2">
+            Next
+          </button>
+        </div>
       </div>
-      <div className="flex font-semibold flex-row my-4 w-full gap-2 items-center justify-between text-center">
-        <input
-          placeholder="Enter your story here..."
-          className=" placeholder:text-[#666666] w-[45%] bg-[#F4F8FC] rounded-2xl border-none outline-none"
-        />
-        <button className="bg-[#F4F8FC] flex items-center justify-center text-[#2B8CFF] py-2 w-[12%] rounded-3xl">
-          <MdKeyboardVoice className="text-2xl mr-1" />
-          Voice
-        </button>
-        <button className="bg-[#F4F8FC] flex items-center justify-center text-[#2B8CFF] py-2 w-[12%] rounded-3xl">
-          <FaFilePdf className="text-2xl mr-1" /> Pictures
-        </button>
-        <button className="bg-[#F4F8FC] flex items-center justify-center text-[#2B8CFF] py-2 w-[12%] rounded-3xl">
-          <IoDocumentAttach className="text-2xl mr-1" />
-          Attach file
-        </button>
-        {/* <button className="bg-[#2B8CFF] py-2 w-[14%] rounded-3xl text-white"> */}
-        <Link className="bg-[#2B8CFF] py-2 w-[14%] rounded-3xl text-white" href={"choose-template"}>
-          {" "}
-          Continue
-        </Link>
-
-        {/* </button> */}
-      </div>
-      <div className="flex flex-col p-4 bg-[#F4F8FC] rounded-3xl">
-        <div className="flex flex-row w-full justify-between items-center border-b border-[#D8D8D8] pb-4">
-          <h3 className="text-[28px] font-bold">Templates</h3>
-          <div className=" w-[45%] flex flex-row text-[14px] items-center gap-4 text-center">
+      <div className="w-full flex flex-col pl-4 rounded-3xl">
+        <div className="flex p-4 mb-4 flex-row w-full bg-[#F4F8FC] rounded-3xl justify-between items-center ">
+          <h3 className="text-[28px] font-semibold text-[#2B8CFF] ">Recommended Topics</h3>
+          <div className=" w-[45%]  flex flex-row text-[14px] items-center gap-4 text-center">
             <input
               placeholder="Search here..."
-              className=" placeholder:text-[#666666] w-[40%] placeholder:text-[14px] py-2 bg-white rounded-3xl border-none outline-none"
+              className=" placeholder:text-[#666666] w-[40%] placeholder:text-[14px] py-2  rounded-3xl border-none outline-none"
             />
             <Menu as="div" className="relative block text-left ml-auto w-[30%]">
               {({ open }) => (
@@ -173,8 +181,8 @@ function UploadContentPage() {
         </div>
         <div
           className={` ${
-            sidebar ? "grid-cols-3" : "grid-cols-3"
-          } grid gap-4 pt-4 overflow-y-auto h-[500px] `}
+            sidebar ? "grid-cols-3" : "grid-cols-4"
+          } grid gap-4 pt-4 overflow-y-auto h-[75vh] border-t border-[#D8D8D8]  `}
         >
           {items.map((item, index) => (
             <TemplateCard key={index} item={item} />
@@ -185,4 +193,4 @@ function UploadContentPage() {
   );
 }
 
-export default UploadContentPage;
+export default ChooseTemplatePage;

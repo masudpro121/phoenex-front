@@ -94,9 +94,7 @@ function InstantEvaluation() {
               {items.name}
               <span
                 className={`${
-                  instantEvaluationList.length - 2 < index + 1
-                    ? "text-blue-500"
-                    : "  text-black"
+                  instantEvaluationList.length - 2 < index + 1 ? "text-blue-500" : "  text-black"
                 }`}
               >
                 {items.range}
@@ -105,13 +103,7 @@ function InstantEvaluation() {
           ))}
         </div>
         <div className="bg-[#F4F8FC]  rounded-lg h-[180px]">
-          <ReactApexChart
-            options={options}
-            series={series}
-            type="radar"
-            height={200}
-            width={200}
-          />
+          <ReactApexChart options={options} series={series} type="radar" height={200} width={200} />
         </div>
       </div>
     </div>
