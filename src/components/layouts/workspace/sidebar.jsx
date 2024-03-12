@@ -296,93 +296,93 @@ const templates2 = [
     options: [
       {
         label: "Visual Vocabulary",
-        route: "/workspace",
+        route: "/workspace/learning-modules/vocabulary/visual-vocabulary",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
       {
-        label: "Comic/Contextual Dialogue",
-        route: "/workspace",
+        label: "Comic (Contextual Dialogue)",
+        route: "/workspace/learning-modules/vocabulary/comic",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
       {
         label: "Flash Card",
-        route: "/workspace/comics",
+        route: "/workspace/learning-modules/vocabulary/flash-card",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
       {
         label: "Tic-Tac-Toe",
-        route: "/workspace",
+        route: "/workspace/learning-modules/vocabulary/tic-tac-toe",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
       {
         label: "Synonym and Antonym",
-        route: "/workspace",
+        route: "/workspace/learning-modules/vocabulary/synonym-antonym",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
       {
         label: "Roots, Prefix, Suffix",
-        route: "/workspace",
+        route: "/workspace/learning-modules/vocabulary/roots-prefix-suffix",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
       {
         label: "Phrases",
-        route: "/workspace",
+        route: "/workspace/learning-modules/vocabulary/phrases",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
       {
         label: "Paragraph",
-        route: "/workspace",
+        route: "/workspace/learning-modules/vocabulary/paragraph",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
       {
         label: "Passage Reading",
-        route: "/workspace",
+        route: "/workspace/learning-modules/vocabulary/passage",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
       {
         label: "Basic Fill in the Blank",
-        route: "/workspace",
+        route: "/workspace/learning-modules/vocabulary/basic-blank",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
       {
         label: "Scene Based Dialogue Fill in the Blank",
-        route: "/workspace",
+        route: "/workspace/learning-modules/vocabulary/scene-based-dialogue",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
       {
         label: "Theme Based Reading",
-        route: "/workspace",
+        route: "/workspace/learning-modules/vocabulary/theme-based-reading",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
       {
         label: "ACT Level Question",
-        route: "/workspace",
+        route: "/workspace/learning-modules/vocabulary/act-level-question",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
       {
         label: "SAT Level Question",
-        route: "/workspace",
+        route: "/workspace/learning-modules/vocabulary/sat-level-question",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
       {
         label: "GRE Level Question",
-        route: "/workspace",
+        route: "/workspace/learning-modules/vocabulary/gre-level-question",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
       {
         label: "Mock Exam",
-        route: "/workspace",
+        route: "/workspace/learning-modules/vocabulary/mock-exam",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
     ],
   },
   {
-    label: "Comic",
+    label: "Audio to Comic",
     icon: <FaEye className="eye_icons" />,
     options: [
       {
-        label: "Visual Vocabulary",
-        route: "/workspace",
+        label: "Audio to Comic",
+        route: "/workspace/learning-modules/audio-to-comic",
         icon: <FaEye className="eye_icons" />,
       },
     ],
@@ -392,8 +392,8 @@ const templates2 = [
     icon: <MdVideoLibrary className="eye_icons" />,
     options: [
       {
-        label: "Visual Vocabulary",
-        route: "/workspace",
+        label: "Book to Summary",
+        route: "/workspace/learning-modules/book-to-summary",
         icon: <MdVideoLibrary className="eye_icons" />,
       },
     ],
@@ -404,7 +404,7 @@ const templates2 = [
     options: [
       {
         label: "Book to Comic",
-        route: "/workspace/book-to-comic",
+        route: "/workspace/learning-modules/book-to-comic",
         icon: <FaEye className="eye_icons" />,
       },
     ],
@@ -1064,7 +1064,7 @@ const recentSearch = ["UI Design", "word", "UI Develop", "mobile", "UI Design"];
 export default function Sidebar({ className }) {
   const pathname = usePathname();
   const [template, setTemplate] = useState(true);
-  const [module, setModule] = useState('learning-assets')
+  const [module, setModule] = useState('')
   // learning-assets, learning-modules 
   // const [sidebar, setSidebar] = useState(true);
   const { sidebar, setSidebar } = useWorkspaceContext();
