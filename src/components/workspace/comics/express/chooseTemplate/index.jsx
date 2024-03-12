@@ -2,16 +2,9 @@
 import React from "react";
 import TemplateCard from "./templateCard";
 import { Fragment, useState } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
-import { IoDocumentAttach } from "react-icons/io5";
-import { MdKeyboardVoice } from "react-icons/md";
 import Image from "next/image";
 
-import { AiFillPicture } from "react-icons/ai";
-import { FaFilePdf } from "react-icons/fa";
-import { Dropdown } from "@/components/layouts/comics/header";
 import avatar1 from "@/assets/comics/uploadContent/avatar10.png";
 import avatar5 from "@/assets/comics/uploadContent/avatar11.png";
 import avatar7 from "@/assets/comics/uploadContent/avatar12.png";
