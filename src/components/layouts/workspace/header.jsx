@@ -146,16 +146,35 @@ export default function Header() {
     evaluationMatrix, setEvaluationMatrix,
     chats, setChats,
     sidebar, setSidebar,
+    namespace, setNamespace
   } = useWorkspaceContext();
 
   const inputRef = useRef();
 
   const [file, setFile] = useState(null);
+  
   const handleChooseFile = () => {
     inputRef.current.click();
   };
+  function loadPdf(f) {
+    const form = new FormData();
+    form.append("file", f);
+    fetch("/api/store-pdf-to-vectordb", {
+      method: "POST",
+      body: form,
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res, "result");
+        localStorage.setItem("book-namespace", JSON.stringify(res.namespace));
+        setNamespace(res.namespace);
+        setFile(null)
+      });
+  }
   const changeHandler = async (e) => {
     setFile(e.target.files[0]);
+    loadPdf(e.target.files[0])
+    
   };
   return (
     <header
