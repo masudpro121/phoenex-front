@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import TemplateCard from "./templateCard";
+import TemplateCard from "../chooseTemplate/templateCard";
 import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
@@ -13,9 +13,9 @@ import { FaFilePdf } from "react-icons/fa";
 import avatar1 from "@/assets/comics/uploadContent/avatar1.png";
 import avatar5 from "@/assets/comics/uploadContent/avatar5.png";
 import avatar7 from "@/assets/comics/uploadContent/avatar7.png";
-import avatar9 from "@/assets/comics/uploadContent/avatar9.png";
+import avatar9 from "@/assets/comics/uploadContent/avatar8.png";
 import avatar6 from "@/assets/comics/uploadContent/avatar6.png";
-import avatar8 from "@/assets/comics/uploadContent/avatar8.png";
+import avatar8 from "@/assets/comics/uploadContent/avatar4.png";
 import { useWorkspaceContext } from "@/context/workspaceProvider";
 import Link from "next/link";
 
@@ -25,54 +25,63 @@ const items = [
     panels: "46",
     style: "Vibrant Cartoon",
     image: avatar1,
+    titles: ["Whimsical Wonders ", "Mystical Creatures' Realm", "Confrontation"],
   },
   {
     topic: "Space Odyssey",
     panels: "32",
     style: "Sci-Fi Futuristic",
     image: avatar5,
+    titles: ["Galactic Frontier", "Journey Beyond Stars", "Cosmic Conundrums", "Adventures"],
   },
   {
     topic: "Mystery Mansion",
     panels: "38    ",
     style: "Dark Noir",
     image: avatar7,
+    titles: ["Whispers in Shadows", "Noir Enigma", "Sinister Secrets", "Haunted Chronicles"],
   },
   {
     topic: "Time Travel Chronicles",
     panels: "20",
     style: "Retro Pixel Art",
     image: avatar9,
+    titles: ["Pixelated Time Warp", "Chronicles of Time"],
   },
   {
     topic: "Magical Quest",
     panels: "30",
     style: "Whimsical Fantasy",
     image: avatar6,
+    titles: ["Fantasy Fables", "Magical Adventures"],
   },
   {
     topic: "Superhero Showdown",
     panels: "45",
     style: "Bold Comic Book",
     image: avatar8,
+    titles: ["Heroic Clash", "Epic Showdown"],
   },
   {
     topic: "Adventure in Wonderland",
     panels: "46",
     style: "Vibrant Cartoon",
     image: avatar1,
+    titles: ["Whimsical Wonders ", "Mystical Creatures' Realm", "Confrontation"],
   },
   {
     topic: "Space Odyssey",
     panels: "32",
     style: "Sci-Fi Futuristic",
     image: avatar5,
+    titles: ["Galactic Frontier", "Journey Beyond Stars", "Cosmic Conundrums", "Adventures"],
   },
   {
     topic: "Mystery Mansion",
     panels: "38    ",
     style: "Dark Noir",
     image: avatar7,
+    titles: ["Whispers in Shadows", "Noir Enigma", "Sinister Secrets", "Haunted Chronicles"],
   },
 ];
 
@@ -83,51 +92,55 @@ function UploadContentPage() {
   const { sidebar, setSidebar } = useWorkspaceContext();
 
   return (
-    <div className="bg-[white] flex flex-col p-4 w-full rounded-3xl h-full">
-      <div className="w-full shape items-center justify-center text-center mb-3 ">
-        <h1 className="text-[28px] font-bold mb-3">Upload Content</h1>
-        <label className="text-[18px] ">
-          Experience the Next Level of Storytelling - Be Your Own Illustrator
-        </label>
-      </div>
-      <div className="flex font-semibold flex-row my-4 w-full gap-2 items-center justify-between text-center">
-        <input
-          placeholder="Enter your story here..."
-          className=" placeholder:text-[#666666] w-[45%] bg-[#F4F8FC] rounded-2xl border-none outline-none"
-        />
-        <button className="bg-[#F4F8FC] flex items-center justify-center text-[#2B8CFF] py-2 w-[12%] rounded-3xl">
-          <MdKeyboardVoice className="text-2xl mr-1" />
-          Voice
-        </button>
-        <button className="bg-[#F4F8FC] flex items-center justify-center text-[#2B8CFF] py-2 w-[12%] rounded-3xl">
-          <FaFilePdf className="text-2xl mr-1" /> Pictures
-        </button>
-        <button className="bg-[#F4F8FC] flex items-center justify-center text-[#2B8CFF] py-2 w-[12%] rounded-3xl">
-          <IoDocumentAttach className="text-2xl mr-1" />
-          Attach file
-        </button>
-        {/* <button className="bg-[#2B8CFF] py-2 w-[14%] rounded-3xl text-white"> */}
-        <Link className="bg-[#2B8CFF] py-2 w-[14%] rounded-3xl text-white" href={"choose-template"}>
-          {" "}
-          Continue
-        </Link>
+    <div className="bg-[white] flex flex-row p-4 w-full rounded-3xl h-full">
+      <div className="w-[25%] h-full items-center pr-4 justify-center text-center mb-3 border-[#D8D8D8] border-r">
+        <div className="flex flex-row items-center pb-2">
+          <h3 className=" ml-2 text-[28px] font-bold">Upload Content</h3>
+        </div>
+        <div className="flex flex-col ">
+          <textarea
+            className={` text-[0.875rem] resize-none outline-none border-none focus:outline-none focus:border-none leading-[34px] bg-[#F4F8FC] h-[58vh] p-4  rounded-3xl`}
+          />
+          <div className="flex font-semibold flex-col my-4 w-full gap-3 items-center justify-between text-center">
+            <div className="flex w-full gap-3">
+              <button className="bg-[#F4F8FC] flex items-center justify-center text-[#2B8CFF] py-2 w-[50%] rounded-3xl">
+                <MdKeyboardVoice className="text-2xl mr-1" />
+                Voice
+              </button>
+              <button className="bg-[#F4F8FC] flex items-center justify-center text-[#2B8CFF] py-2 w-[50%] rounded-3xl">
+                <FaFilePdf className="text-2xl mr-1" /> Pictures
+              </button>
+            </div>
+            <button className="bg-[#F4F8FC] flex items-center justify-center text-[#2B8CFF] py-2 w-full rounded-3xl">
+              <IoDocumentAttach className="text-2xl mr-1" />
+              Attach file
+            </button>
+            {/* <button className="bg-[#2B8CFF] py-2 w-[14%] rounded-3xl text-white"> */}
+            <Link
+              className="bg-[#2B8CFF] py-2 w-full rounded-3xl text-white"
+              href={"storyboard-refinement"}
+            >
+              Continue
+            </Link>
 
-        {/* </button> */}
+            {/* </button> */}
+          </div>
+        </div>
       </div>
-      <div className="flex flex-col p-4 bg-[#F4F8FC] rounded-3xl">
+      <div className="w-[75%] flex flex-col pl-4 rounded-3xl">
         <div className="flex flex-row w-full justify-between items-center border-b border-[#D8D8D8] pb-4">
-          <h3 className="text-[28px] font-bold">Templates</h3>
+          <h3 className="text-[28px] font-bold">Recommended Topics</h3>
           <div className=" w-[45%] flex flex-row text-[14px] items-center gap-4 text-center">
             <input
               placeholder="Search here..."
-              className=" placeholder:text-[#666666] w-[40%] placeholder:text-[14px] py-2 bg-white rounded-3xl border-none outline-none"
+              className=" placeholder:text-[#666666] w-[40%] placeholder:text-[14px] py-2 bg-[#F4F8FC] rounded-3xl border-none outline-none"
             />
             <Menu as="div" className="relative block text-left ml-auto w-[30%]">
               {({ open }) => (
                 <>
                   <div className="w-full">
                     <Menu.Button
-                      className={` w-full inline-flex text-[14px] items-center justify-center py-2  rounded-3xl  bg-white shadow-sm ring-1 ring-inset ring-gray-300 `}
+                      className={` w-full inline-flex text-[14px] items-center justify-center py-2  rounded-3xl  bg-[#F4F8FC] shadow-sm ring-1 ring-inset ring-gray-300 `}
                     >
                       Catogaries
                       <ChevronDownIcon
@@ -173,8 +186,8 @@ function UploadContentPage() {
         </div>
         <div
           className={` ${
-            sidebar ? "grid-cols-3" : "grid-cols-3"
-          } grid gap-4 pt-4 overflow-y-auto h-[500px] `}
+            sidebar ? "grid-cols-3" : "grid-cols-4"
+          } grid gap-4 pt-4 overflow-y-auto h-[75vh] `}
         >
           {items.map((item, index) => (
             <TemplateCard key={index} item={item} />

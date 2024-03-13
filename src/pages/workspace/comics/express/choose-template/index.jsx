@@ -1,4 +1,4 @@
-import ChooseTemplatePage from "@/components/workspace/chooseTemplate";
+import ChooseTemplatePage from "@/components/workspace/comics/express/chooseTemplate";
 import React from "react";
 
 function ChooseTemplate() {

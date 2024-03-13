@@ -15,13 +15,13 @@ function Comics() {
   const options = [
     {
       icon: current,
-      route: "/workspace/comics/upload-content",
+      route: "/workspace/comics/express/upload-content",
       heading: "Express Mode",
       text: "Dive into comics creation with minimal effort! Perfect for those without a concrete idea or just looking for some fun.",
     },
     {
       icon: boxStar,
-      route: "/",
+      route: "/workspace/comics/prompt/upload-content",
       heading: "Prompt Mode",
       text: "Tailored for professionals, writers, and educators: Upload prompts, get topic suggestions, refine your comic.",
     },
