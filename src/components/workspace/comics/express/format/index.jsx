@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Preview from "./Preview";
 import ChooseFormat from "./ChooseFormat";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
@@ -8,6 +8,7 @@ import FrameHeight from "../../../../../assets/format/frameheight.png";
 import FrameWeight from "../../../../../assets/format/frameweight.png";
 import Frame from "../../../../../assets/format/frame.png";
 import Image from "next/image";
+import { useWorkspaceContext } from "@/context/workspaceProvider";
 
 const chooseFormatList = [
   {
@@ -84,6 +85,12 @@ const chooseFormatList = [
 ];
 function FormatPage() {
   const [preview, setPreview] = useState();
+  
+  const { nextRoute,setNextRoute } = useWorkspaceContext();
+  useEffect(()=>{
+    setNextRoute("/workspace/comics/express/download")
+  ,[]})
+    
   return (
     <>
       <div className=" w-full bg-[white] py-2 px-2 rounded-lg flex justify-between  h-full">

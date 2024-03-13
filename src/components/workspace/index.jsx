@@ -139,6 +139,13 @@ function Workspace() {
     reverse: true,
   });
 
+
+  const { nextRoute,setNextRoute } = useWorkspaceContext();
+
+  useEffect(()=>{
+    setNextRoute(null)
+  ,[]})
+
   console.log("container size==>", containerSize);
   return (
     <>

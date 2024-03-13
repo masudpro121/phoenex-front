@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Fragment, useState } from "react";
 import { Menu, Transition, Popover } from "@headlessui/react";
@@ -19,6 +19,8 @@ import { PiDotsNineBold } from "react-icons/pi";
 import { IoMdCloseCircle } from "react-icons/io";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
+import { FaRegSave } from "react-icons/fa";
+
 import Link from "next/link";
 
 const items = [
@@ -92,84 +94,108 @@ function StoryboardRefinementPage() {
     return classes.filter(Boolean).join(" ");
   }
   const [original, setOriginal] = useState(true);
-
+  const [editId, setEditId] = useState(null);
   const { sidebar, setSidebar } = useWorkspaceContext();
-  const [data, setData] = useState({
-    chapters: [
-      {
-        chapter: "chapter 1",
-        pages: [
-          {
-            panels: [
-              "An ordinary living room with a sofa, a lamp, and a closed front door.",
-              "Write here..",
-            ],
-          },
-          {
-            panels: [
-              "Door slightly ajar, revealing a mysterious silhouette.",
-              "The silhouette steps into the room",
-              "The kitten looks around curiously.",
-            ],
-          },
-        ],
-      },
-      {
-        chapter: "chapter 2",
-        pages: [
-          {
-            panels: [
-              "An ordinary living room with a sofa, a lamp, and a closed front door.",
-              "Write here..",
-            ],
-          },
-          {
-            panels: [
-              "Door slightly ajar, revealing a mysterious silhouette.",
-              "The silhouette steps into the room",
-              "The kitten looks around curiously.",
-            ],
-          },
-        ],
-      },
-      {
-        chapter: "chapter 3",
-        pages: [
-          {
-            panels: [
-              "An ordinary living room with a sofa, a lamp, and a closed front door.",
-              "Write here..",
-            ],
-          },
-          {
-            panels: [
-              "Door slightly ajar, revealing a mysterious silhouette.",
-              "The silhouette steps into the room",
-              "The kitten looks around curiously.",
-            ],
-          },
-        ],
-      },
-      {
-        chapter: "chapter 4",
-        pages: [
-          {
-            panels: [
-              "An ordinary living room with a sofa, a lamp, and a closed front door.",
-              "Write here..",
-            ],
-          },
-          {
-            panels: [
-              "Door slightly ajar, revealing a mysterious silhouette.",
-              "The silhouette steps into the room",
-              "The kitten looks around curiously.",
-            ],
-          },
-        ],
-      },
-    ],
-  });
+  const [data, setData] = useState([
+    {
+      name: "chapter 1",
+      pages: [
+        {
+          panels: [
+            "An ordinary living room with a sofa, a lamp, and a closed front door.",
+            "Write here..",
+          ],
+        },
+        {
+          panels: [
+            "Door slightly ajar, revealing a mysterious silhouette.",
+            "The silhouette steps into the room",
+            "The kitten looks around curiously.",
+          ],
+        },
+      ],
+    },
+    {
+      name: "chapter 2",
+      pages: [
+        {
+          panels: [
+            "An ordinary living room with a sofa, a lamp, and a closed front door.",
+            "Write here..",
+          ],
+        },
+        {
+          panels: [
+            "Door slightly ajar, revealing a mysterious silhouette.",
+            "The silhouette steps into the room",
+            "The kitten looks around curiously.",
+          ],
+        },
+      ],
+    },
+    {
+      name: "chapter 3",
+      pages: [
+        {
+          panels: [
+            "An ordinary living room with a sofa, a lamp, and a closed front door.",
+            "Write here..",
+          ],
+        },
+        {
+          panels: [
+            "Door slightly ajar, revealing a mysterious silhouette.",
+            "The silhouette steps into the room",
+            "The kitten looks around curiously.",
+          ],
+        },
+      ],
+    },
+    {
+      name: "chapter 4",
+      pages: [
+        {
+          panels: [
+            "An ordinary living room with a sofa, a lamp, and a closed front door.",
+            "Write here..",
+          ],
+        },
+        {
+          panels: [
+            "Door slightly ajar, revealing a mysterious silhouette.",
+            "The silhouette steps into the room",
+            "The kitten looks around curiously.",
+          ],
+        },
+      ],
+    },
+  ]);
+
+  function deleteChapter(index) {
+    const filtered = data.filter((x, i) => i !== index);
+    setData(filtered);
+  }
+
+  function editChapter(index) {
+    setEditId(index);
+  }
+
+  function editChapterValue(index, value) {
+    const updatedChapter = data.map((v, i) => (i == index ? { ...v, name: value } : v));
+    setData(updatedChapter);
+  }
+  function AddNewChapter(index) {
+    const newChapter = {
+      name: "New Chapter",
+    };
+    setData([...data, newChapter]);
+  }
+  const { nextRoute,setNextRoute } = useWorkspaceContext();
+
+  useEffect(()=>{
+    setNextRoute("/workspace/comics/prompt/choose-template")
+  ,[]})
+
   return (
     <div className="bg-[white] flex flex-col p-4 w-full rounded-3xl h-full">
       <div className="w-full justify-between flex text-[16px] font-semibold border-b-2 pb-4 mb-4 border-[#D8D8D8]">
@@ -207,37 +233,68 @@ function StoryboardRefinementPage() {
         </div>
       </div>
       <div className=" flex w-full gap-4">
-        <div className="w-[15%] bg-[#F4F8FC] h-full items-center justify-center text-center p-4 rounded-3xl ">
+        <div className="w-[20%] bg-[#F4F8FC] h-full items-center justify-center text-center p-4 rounded-3xl ">
           <div className="flex flex-row w-full justify-between items-center pb-2 border-b border-[#D8D8D8] ">
             <h3 className="text-[16px] font-semibold">Chapters</h3>
           </div>
           <div className="flex flex-col ">
             <div className=" overflow-y-auto over h-[60vh]">
-              <button className="border-2 flex justify-center gap-2 items-center my-6 text-[#2B8CFF] border-[#2B8CFF] rounded-2xl w-full  py-2">
+              <button
+                className="border-2 flex justify-center gap-2 items-center my-6 text-[#2B8CFF] border-[#2B8CFF] rounded-2xl w-full  py-2"
+                onClick={() => AddNewChapter()}
+              >
                 <IoMdAddCircle className="text-[18px]" /> New Chapter
               </button>
-              <div className="flex flex-col gap-3">
-                {data.chapters.map((chapters, index) => (
-                  <div
-                    key={index}
-                    className="flex  bg-white p-3 rounded-2xl items-center justify-between text-[#9E9E9E] text-[14px]"
-                  >
-                    <label>Chapter {index + 1}</label>
-                    <div className="flex gap-2 text-[18px]">
-                      <button>
-                        <BiSolidEditAlt />
-                      </button>
-                      <button>
-                        <FaRegTrashAlt />
-                      </button>
+              <div className="flex flex-col w-full gap-3">
+                {data.map((chapter, index) => {
+                  const isEditable = index == editId;
+                  return (
+                    <div
+                      key={index}
+                      className="flex w-full bg-white p-3 rounded-2xl items-center justify-between text-[#9E9E9E] text-[14px]"
+                    >
+                      {/* <div className="w-full">
+                        <input
+                          className={`${
+                            isEditable ? "rounded-md border-[#2B8CFF] " : " border-0"
+                          } `}
+                          value={chapter.name}
+                          disabled={!isEditable}
+                          onChange={(e) => editChapterValue(index, e.target.value)}
+                        />
+                      </div> */}
+                      <div className="chapter-input h-full">
+                        <input
+                          className={` w-full ${
+                            isEditable ? " rounded-md border-[#2B8CFF] " : " border-0"
+                          } `}
+                          value={chapter.name}
+                          disabled={!isEditable}
+                          onChange={(e) => editChapterValue(index, e.target.value)}
+                        />
+                      </div>
+                      <div className="flex gap-2 text-[18px] w-[50px]">
+                        {isEditable ? (
+                          <button onClick={() => setEditId(null)}>
+                            <FaRegSave />
+                          </button>
+                        ) : (
+                          <button>
+                            <BiSolidEditAlt onClick={() => editChapter(index)} />
+                          </button>
+                        )}
+                        <button onClick={() => deleteChapter(index)}>
+                          <FaRegTrashAlt />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
         </div>
-        <div className="w-[85%] bg-[#F4F8FC] flex flex-col p-4 rounded-3xl">
+        <div className="w-[80%] bg-[#F4F8FC] flex flex-col p-4 rounded-3xl">
           <div className="flex flex-row w-full justify-between items-center border-b border-[#D8D8D8] ">
             <h3 className="text-[24px] font-semibold">
               Get a glimpse of your story`&apos;`s new visual life
@@ -269,7 +326,7 @@ function StoryboardRefinementPage() {
             </div>
           </div>
           <div className={` flex flex-col gap-8 pt-4 pr-4 overflow-y-auto h-[60vh] w-full`}>
-            {data.chapters[0].pages.map((panels, index) => (
+            {data[0].pages.map((panels, index) => (
               <div className=" flex flex-col w-full gap-4" key={index}>
                 <div className="flex items-center bg-white rounded-2xl p-3 h-min w-full gap-3 font-bold">
                   <button className=" rounded-lg h-full px-2 text-[#D8D8D8] bg-[#F4F8FC] text-[20px]">

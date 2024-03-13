@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import star from "@/assets/choose/star.png";
 import starFour from "@/assets/choose/starfour.png";
 import starPoint from "@/assets/choose/starpoint.png";
@@ -10,6 +10,7 @@ import boxStar from "@/assets/choose/boxstar.png";
 import pencel from "@/assets/choose/pencel.png";
 import choose from "@/assets/choose/choose.png";
 import Link from "next/link";
+import { useWorkspaceContext } from "@/context/workspaceProvider";
 
 function Comics() {
   const options = [
@@ -35,6 +36,12 @@ function Comics() {
 
     // Add more objects as needed
   ];
+  const { nextRoute,setNextRoute } = useWorkspaceContext();
+
+  useEffect(()=>{
+    setNextRoute(null)
+  ,[]})
+
   return (
     <>
       <div className="bg-white w-full h-full rounded-2xl flex flex-col justify-between  ">

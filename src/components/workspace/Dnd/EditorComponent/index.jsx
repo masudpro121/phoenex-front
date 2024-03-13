@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Back from "../../../../assets/workspace/back.png";
 import delete1 from "../../../../assets/workspace/delete.png";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -36,10 +36,16 @@ import { SlBubbles } from "react-icons/sl";
 import Element from "../../../../assets/workspace/Element.png";
 import { MdOutlineGraphicEq } from "react-icons/md";
 import Link from "next/link";
+import { useWorkspaceContext } from "@/context/workspaceProvider";
 
 function EditorComponent() {
   const [droppedItems, setDroppeditems] = useState([]);
 
+  const { nextRoute,setNextRoute } = useWorkspaceContext();
+useEffect(()=>{
+  setNextRoute("/workspace/comics/express/format")
+,[]})
+  
   // const [, drop] = useDrop({
   //   accept: `${"ITEM"}`,
   //   hover(item) {

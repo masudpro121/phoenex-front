@@ -20,7 +20,9 @@ import avatar6 from "@/assets/comics/uploadContent/avatar3.png";
 import avatar8 from "@/assets/comics/uploadContent/avatar4.png";
 import back from "@/assets/comics/uploadContent/back.png";
 import { useWorkspaceContext } from "@/context/workspaceProvider";
+
 import Link from "next/link";
+import { useWorkspaceContext } from "@/context/workspaceProvider";
 
 const items = [
   {
@@ -499,6 +501,9 @@ function ChooseTemplatePage() {
   const [original, setOriginal] = useState(true);
   const { sidebar, setSidebar } = useWorkspaceContext();
 
+  setNextRoute("/editor")
+
+  console.log(nextRoute,"Next12")
   return (
     <div className="bg-[white] flex flex-row p-4 w-full rounded-3xl h-full">
       <div

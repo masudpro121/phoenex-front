@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import TemplateCard from "./templateCard";
 import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
@@ -88,6 +88,12 @@ function ChooseTemplatePage() {
   const [template, setTemplate] = useState();
   const [original, setOriginal] = useState(true);
   const { sidebar, setSidebar } = useWorkspaceContext();
+
+  const { nextRoute,setNextRoute } = useWorkspaceContext();
+
+  useEffect(()=>{
+    setNextRoute(null)
+  ,[]})
 
   return (
     <div className="bg-[white] flex flex-col p-4 w-full rounded-3xl h-full">

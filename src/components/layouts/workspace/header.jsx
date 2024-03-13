@@ -16,11 +16,8 @@ import backwordIcon from "../../../assets/icon/backward.png";
 import printIcon from "../../../assets/icon/printicon.png";
 import shareIcon from "../../../assets/icon/shareicon.png";
 import { FaBell, FaPlus, FaCheck } from "react-icons/fa";
-
-import {
-  WorkspaceContext,
-  useWorkspaceContext,
-} from "../../../context/workspaceProvider";
+import { useRouter } from "next/navigation";
+import { WorkspaceContext, useWorkspaceContext } from "../../../context/workspaceProvider";
 
 import readIcon from "../../../assets/icon/read.svg";
 import quizIcon from "../../../assets/icon/quiz.svg";
@@ -69,6 +66,8 @@ const notification = [
   },
 ];
 export function Dropdown({ label, options, icon, bg, style, auto }) {
+  const { nextRoute } = useWorkspaceContext();
+  const router = useRouter();
   return (
     <Menu as="div" className="relative text-[16px] text-left">
       <div>
@@ -117,9 +116,7 @@ export function Dropdown({ label, options, icon, bg, style, auto }) {
                         key={index}
                         onClick={j.onclick}
                         className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
+                          active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                           "block cursor-pointer px-4 py-2 text-sm"
                         )}
                       >
@@ -140,19 +137,26 @@ export default function Header() {
   const windowScroll = useWindowScroll();
 
   const {
-    whiteBoard, setWhiteBoard,
-    notesBoard, setNotesBoard,
-    instantEvaluation, setInstantEvaluation,
-    evaluationMatrix, setEvaluationMatrix,
-    chats, setChats,
-    sidebar, setSidebar,
-    namespace, setNamespace
+    whiteBoard,
+    setWhiteBoard,
+    notesBoard,
+    setNotesBoard,
+    instantEvaluation,
+    setInstantEvaluation,
+    evaluationMatrix,
+    setEvaluationMatrix,
+    chats,
+    setChats,
+    sidebar,
+    setSidebar,
+    namespace,
+    setNamespace,
   } = useWorkspaceContext();
 
   const inputRef = useRef();
 
   const [file, setFile] = useState(null);
-  
+
   const handleChooseFile = () => {
     inputRef.current.click();
   };
@@ -168,14 +172,16 @@ export default function Header() {
         console.log(res, "result");
         localStorage.setItem("book-namespace", JSON.stringify(res.namespace));
         setNamespace(res.namespace);
-        setFile(null)
+        setFile(null);
       });
   }
   const changeHandler = async (e) => {
     setFile(e.target.files[0]);
-    loadPdf(e.target.files[0])
-    
+    loadPdf(e.target.files[0]);
   };
+  const router = useRouter();
+  const { nextRoute } = useWorkspaceContext();
+
   return (
     <header
       className={cn(
@@ -302,13 +308,17 @@ export default function Header() {
         <div className="h-10 border-[#D8D8D8] border-r-[2px] rounded-ss rounded-es rounded-ee rounded-se " />
         <div className="flex items-center justify-between w-[20%]">
           <div className="flex items-center  justify-around w-[30%]">
-            <Image
-              src={backwordIcon}
-              alt="backwordIcon"
-              width={30}
-              height={20}
-            />
-            <Image src={forwardIcon} alt="forwardIcon" width={30} height={20} />
+         
+            <button onClick={() => router.back()} className="cursor-pointer">
+              <Image src={backwordIcon} alt="backwordIcon" width={30} height={20} />
+            </button>
+            {nextRoute == null ? (
+              <></>
+            ) : (
+              <button onClick={() => router.push(nextRoute)} className="cursor-pointer">
+                <Image src={forwardIcon} alt="forwardIcon" width={30} height={20} />
+              </button>
+            )}
           </div>
           {/* <button className="relative flex bg-[#F4F8FC] rounded-full  h-[40px] w-[40px] items-center justify-center">
             <span className="absolute rounded-full mt-[-14px] ml-[-10px] border-[1px] border-white bg-[#2B8CFF] text-xs h-[16px] w-[16px] flex items-center justify-center text-white">
@@ -341,9 +351,7 @@ export default function Header() {
               >
                 <div className=" w-full flex flex-col p-3 ">
                   <div className="  items-center flex justify-between mb-3 ">
-                    <h4 className=" text-[14px] font-semibold text-[#2B8CFF]">
-                      Today
-                    </h4>
+                    <h4 className=" text-[14px] font-semibold text-[#2B8CFF]">Today</h4>
                     <label className=" cursor-pointer text-[10px] text-[#9E9E9E]">
                       Mark as all read
                     </label>
@@ -352,23 +360,15 @@ export default function Header() {
                     <Menu.Item key={index}>
                       {({ active }) => (
                         <div className="cursor-pointer w-full flex items-center text-[#666666] pb-2 mb-2 border-b border-[#9E9E9E]">
-                          <Image
-                            src={j.icon}
-                            alt={j.label}
-                            className=" w-8 h-8 mr-2"
-                          />
+                          <Image src={j.icon} alt={j.label} className=" w-8 h-8 mr-2" />
                           <div
                             onClick={j.onclick}
                             className={classNames(
-                              active
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-700",
+                              active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                               "cursor-pointer text-sm flex flex-col w-full"
                             )}
                           >
-                            <label className="text-[12px] cursor-pointer">
-                              {j.head}
-                            </label>
+                            <label className="text-[12px] cursor-pointer">{j.head}</label>
                             <div className="flex leading-[0.6rem] text-[9px] w-full justify-between text-[#9E9E9E]">
                               <label className="cursor-pointer">{j.desc}</label>
                               <label className="cursor-pointer text-[8px] text-black">
@@ -389,13 +389,7 @@ export default function Header() {
         <div className="flex items-center justify-around w-[10%]">
           <div className="flex">
             <Image src={profile} alt="profile" width={40} height={40} />
-            <Image
-              alt="profile2"
-              className="ml-[-8px]"
-              src={profile2}
-              width={40}
-              height={40}
-            />
+            <Image alt="profile2" className="ml-[-8px]" src={profile2} width={40} height={40} />
             <button className="ml-[-8px] flex bg-[#2B8CFF] rounded-full  h-[40px] w-[40px] items-center justify-center">
               <FaPlus color="white" />
             </button>

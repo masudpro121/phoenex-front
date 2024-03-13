@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsFacebook } from "react-icons/bs";
 import Select from "react-select";
 import { FaInstagram } from "react-icons/fa";
@@ -9,8 +9,22 @@ import ImgOne from "@/assets/download/img1.png";
 import ImgTwo from "@/assets/download/img2.png";
 import ImgThreee from "@/assets/download/img3.png";
 import Image from "next/image";
+import { useWorkspaceContext } from "@/context/workspaceProvider";
 
 function DownloadPage() {
+
+
+
+
+
+
+
+
+
+
+
+
+
   const options = [
     { value: "apple", label: "Facebook", icon: <BsFacebook /> },
     { value: "banana", label: "Youtube", icon: <FaYoutube /> },
@@ -25,6 +39,13 @@ function DownloadPage() {
       {label}
     </div>
   );
+  const { nextRoute,setNextRoute } = useWorkspaceContext();
+
+  useEffect(()=>{
+    setNextRoute(null)
+  ,[]})
+
+
   return (
     <div className="bg-white w-full h-full rounded-2xl">
       <div className="w-[95%] mx-auto pt-6">

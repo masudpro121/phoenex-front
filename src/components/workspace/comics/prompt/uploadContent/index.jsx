@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import TemplateCard from "../chooseTemplate/templateCard";
 import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
@@ -90,6 +90,11 @@ function UploadContentPage() {
     return classes.filter(Boolean).join(" ");
   }
   const { sidebar, setSidebar } = useWorkspaceContext();
+  const { nextRoute,setNextRoute } = useWorkspaceContext();
+
+  useEffect(()=>{
+    setNextRoute("/workspace/comics/prompt/storyboard-refinement")
+  ,[]})
 
   return (
     <div className="bg-[white] flex flex-row p-4 w-full rounded-3xl h-full">
