@@ -1,5 +1,6 @@
 import { useWorkspaceContext } from "@/context/workspaceProvider";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const BookToSummary = () => {
   const [file, setFile] = useState(null);
@@ -45,23 +46,10 @@ const BookToSummary = () => {
       setNamespace(ns);
     }
   }, []);
-  function loadPdf() {
-    const form = new FormData();
-    form.append("file", file);
-    fetch("/api/store-pdf-to-vectordb", {
-      method: "POST",
-      body: form,
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res, "result");
-        localStorage.setItem("book-namespace", JSON.stringify(res.namespace));
-        setNamespace(res.namespace);
-      });
-  }
+  
 
   function generateSummary() {
-    fetch("/api/query-pdf", {
+    return fetch("/api/query-pdf", {
       method: "POST",
       body: JSON.stringify({
         namespace,
@@ -72,12 +60,14 @@ const BookToSummary = () => {
       .then((res) => {
         if (res.result) {
           setResult(res.result.text);
+        }else{
+          throw new Error("Failed to generate summary")
         }
       });
   }
   function getResult(question) {
     setResult("loading..")
-    fetch("/api/query-pdf", {
+    return fetch("/api/query-pdf", {
       method: "POST",
       body: JSON.stringify({
         namespace,
@@ -89,6 +79,8 @@ const BookToSummary = () => {
         if (res.result) {
           console.log(res.result, 'result');
           setResult(res.result.text);
+        }else{
+          throw new Error("Failed to query pdf")
         }
       });
   }
@@ -100,7 +92,7 @@ const BookToSummary = () => {
   }
 
   function queryYourResult() {
-    fetch("/api/query-pdf", {
+    return fetch("/api/query-pdf", {
       method: "POST",
       body: JSON.stringify({
         namespace,
@@ -111,8 +103,15 @@ const BookToSummary = () => {
       .then((res) => {
         if (res.result) {
           setResult(res.result.text);
+        }else{
+          throw new Error("Failed to query pdf")
         }
       });
+  }
+  const toastObj = {
+    pending: 'In progress',
+    success: 'Generated 👌',
+    error: 'Oops! Please try again.. 😔'
   }
   return (
     <div className="overflow-auto">
@@ -124,7 +123,7 @@ const BookToSummary = () => {
                 <button
                   button
                   className="bg-blue-500 text-white px-3 py-2 rounded-md"
-                  onClick={generateSummary}
+                  onClick={()=>toast.promise(generateSummary, toastObj)}
                 >
                   Generate Summary
                 </button>
@@ -137,7 +136,7 @@ const BookToSummary = () => {
                   placeholder="ask your query.."
                 />
                 <button
-                  onClick={queryYourResult}
+                  onClick={()=>toast.promise(queryYourResult, toastObj)}
                   className="bg-blue-500 min-w-fit text-white px-3 py-2 rounded-md"
                 >
                   Get Result
@@ -165,7 +164,7 @@ const BookToSummary = () => {
                       modules1.map((question, i)=>{
                         return (
                           <div>
-                            <button className="bg-blue-500 text-left text-white px-2 py-1 my-1 rounded-md text sm" onClick={()=>getResult(question)}>{question}</button>
+                            <button className="bg-blue-500 text-left text-white px-2 py-1 my-1 rounded-md text sm" onClick={()=>toast.promise(()=>getResult(question), toastObj)}>{question}</button>
                           </div>
                         )
                       })
@@ -181,7 +180,7 @@ const BookToSummary = () => {
                       modules2.map((question, i)=>{
                         return (
                           <div>
-                            <button className="bg-blue-500 text-left text-white px-2 py-1 my-1 rounded-md text sm" onClick={()=>getResult(question)}>{question}</button>
+                            <button className="bg-blue-500 text-left text-white px-2 py-1 my-1 rounded-md text sm" onClick={()=>toast.promise(()=>getResult(question), toastObj)}>{question}</button>
                           </div>
                         )
                       })
@@ -197,7 +196,7 @@ const BookToSummary = () => {
                       modules3.map((question, i)=>{
                         return (
                           <div>
-                            <button className="bg-blue-500 text-left text-white px-2 py-1 my-1 rounded-md text sm" onClick={()=>getResult(question)}>{question}</button>
+                            <button className="bg-blue-500 text-left text-white px-2 py-1 my-1 rounded-md text sm" onClick={()=>toast.promise(()=>getResult(question), toastObj)}>{question}</button>
                           </div>
                         )
                       })
@@ -213,7 +212,7 @@ const BookToSummary = () => {
                       modules4.map((question, i)=>{
                         return (
                           <div>
-                            <button className="bg-blue-500 text-left text-white px-2 py-1 my-1 rounded-md text sm" onClick={()=>getResult(question)}>{question}</button>
+                            <button className="bg-blue-500 text-left text-white px-2 py-1 my-1 rounded-md text sm" onClick={()=>toast.promise(()=>getResult(question), toastObj)}>{question}</button>
                           </div>
                         )
                       })
@@ -229,7 +228,7 @@ const BookToSummary = () => {
                       modules4.map((question, i)=>{
                         return (
                           <div>
-                            <button className="bg-blue-500 text-left text-white px-2 py-1 my-1 rounded-md text sm" onClick={()=>getResult(question)}>{question}</button>
+                            <button className="bg-blue-500 text-left text-white px-2 py-1 my-1 rounded-md text sm" onClick={()=>toast.promise(()=>getResult(question), toastObj)}>{question}</button>
                           </div>
                         )
                       })

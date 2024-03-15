@@ -1,5 +1,5 @@
 "use client";
-
+import {  toast } from 'react-toastify';
 import cn from "../../../utils/class-names";
 import { useIsMounted } from "../../../hooks/use-is-mounted";
 import { useWindowScroll } from "../../../hooks/use-window-scroll";
@@ -159,27 +159,38 @@ export default function Header() {
   function loadPdf(f) {
     const form = new FormData();
     form.append("file", f);
-    fetch("/api/store-pdf-to-vectordb", {
+    return fetch("/api/store-pdf-to-vectordb", {
       method: "POST",
       body: form,
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res, "result");
+        console.log(res.namespace, 'namespace');
+        if(!res.namespace){
+          throw new Error("Failed to upload file")
+        }
         localStorage.setItem("book-namespace", JSON.stringify(res.namespace));
         setNamespace(res.namespace);
         setFile(null)
-      });
+      })
   }
   const changeHandler = async (e) => {
     setFile(e.target.files[0]);
-    loadPdf(e.target.files[0])
+    
+    toast.promise(
+      ()=>loadPdf(e.target.files[0]),
+      {
+        pending: 'Uploading..',
+        success: 'Successfully Uploaded 👌',
+        error: 'Oops! Please try again.. 😔'
+      }
+  )
     
   };
   return (
     <header
       className={cn(
-        "sticky top-4 z-[1000] flex items-center  mx-4 my-4 rounded-[25px] backdrop-blur-xl md:px-5 lg:px-6 2xl:py-5 3xl:px-8 4xl:px-10 bg-white min-h-16 ",
+        "sticky top-4  flex items-center  mx-4 my-4 rounded-[25px] backdrop-blur-xl md:px-5 lg:px-6 2xl:py-5 3xl:px-8 4xl:px-10 bg-white min-h-16 ",
         (isMounted && windowScroll.y) > 2 ? "card-shadow" : ""
       )}
     >
