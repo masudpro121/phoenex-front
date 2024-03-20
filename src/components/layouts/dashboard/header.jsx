@@ -15,6 +15,7 @@ import bg from "../../../assets/header/bg.png";
 import icon from "../../../assets/icon/burger-menu.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useWorkspaceContext } from "../../../context/workspaceProvider";
+import Link from "next/link";
 const navData = [
   {
     label: "PhoenEdX",
@@ -147,7 +148,9 @@ export default function Header() {
             <Image src={icon} alt={"dash"} width="30" height="30" />
           </button>
           <div className=" block px-4">
-            <Image src={bg} alt={"icon"} width="40" height="40" />
+            <Link href="/dashboard">
+              <Image src={bg} alt={"icon"} width="40" height="40" />
+            </Link>
           </div>
           <div className="hidden justify-around lg:w-[80%] w-[80%] lg:flex md:hidden">
             {navData.map((i, index) => (
@@ -332,7 +335,9 @@ export default function Header() {
               <>
                 <div>
                   <Menu.Button className="inline-flex w-full items-center justify-center gap-x-1.5 rounded-md bg-white px-4 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                    <Image alt={"dp"} src={dp} width="30" height="30" />
+                    <Link href="/profile">
+                      <Image alt={"dp"} src={dp} width="30" height="30" />
+                    </Link>
                     Shayan
                     <ChevronDownIcon
                       className={`${
