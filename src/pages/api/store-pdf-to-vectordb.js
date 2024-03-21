@@ -29,61 +29,64 @@ const upload = multer({ storage: multer.memoryStorage() });
 // });
 
 router.use(upload.single("file")).post(async (req, res) => {
-  const docs = await pdf(req.file.buffer);
-  // if(docs){
-  //   await fs.unlinkSync(req.file.path)
-  // }
-  const pinecone = new Pinecone();
-  const namespace = "pdf-" + Date.now();
-  const pineconeIndex = pinecone.Index(process.env.PINECONE_INDEX);
+  try {
+    const docs = await pdf(req.file.buffer);
+    // if(docs){
+    //   await fs.unlinkSync(req.file.path)
+    // }
+    const pinecone = new Pinecone();
+    const namespace = "pdf-" + Date.now();
+    const pineconeIndex = pinecone.Index(process.env.PINECONE_INDEX);
 
-  if (docs.numpages === 0) {
-    console.log("No documents found.");
-    return;
-  }
+    if (docs.numpages === 0) {
+      console.log("No documents found.");
+      return;
+    }
 
-  // Chunk it
-  // const splitter = new CharacterTextSplitter({
-  //   separator: " ",
-  //   chunkSize: 250,
-  //   chunkOverlap: 10,
-  // });
+    // Chunk it
+    // const splitter = new CharacterTextSplitter({
+    //   separator: " ",
+    //   chunkSize: 250,
+    //   chunkOverlap: 10,
+    // });
 
-  // const splitter = new RecursiveCharacterTextSplitter({
-  //   separator: " ",
-  //   chunkSize: 250,
-  //   chunkOverlap: 10,
-  // });
+    // const splitter = new RecursiveCharacterTextSplitter({
+    //   separator: " ",
+    //   chunkSize: 250,
+    //   chunkOverlap: 10,
+    // });
 
-  const splitter = new TokenTextSplitter({
-    encodingName: "gpt2",
-    chunkSize: 250,
-    chunkOverlap: 10,
-    separator: " ",
-  });
-
-  const splitDocs = await splitter.splitDocuments([
-    new Document({ pageContent: docs.text }),
-  ]);
-
-  console.log(splitDocs, 'split docs');
-  // Reduce the size of the metadata
-  const reducedDocs = splitDocs.map(doc=>{
-    let metadata = {...doc.metadata}
-    delete metadata.pdf
-    doc.metadata = metadata
-    return new Document({
-      pageContent: doc.pageContent,
-      metadata
+    const splitter = new TokenTextSplitter({
+      encodingName: "gpt2",
+      chunkSize: 250,
+      chunkOverlap: 10,
     });
-  })
 
-  await PineconeStore.fromDocuments(reducedDocs, new OpenAIEmbeddings(), {
-    pineconeIndex,
-    maxConcurrency: 5,
-    namespace
-  });
-  return res.json({namespace})
+    const splitDocs = await splitter.splitDocuments([
+      new Document({ pageContent: docs.text }),
+    ]);
+
+    console.log(splitDocs, "split docs");
+    // Reduce the size of the metadata
+    const reducedDocs = splitDocs.map((doc) => {
+      let metadata = { ...doc.metadata };
+      delete metadata.pdf;
+      doc.metadata = metadata;
+      return new Document({
+        pageContent: doc.pageContent,
+        metadata,
+      });
+    });
+
+    await PineconeStore.fromDocuments(reducedDocs, new OpenAIEmbeddings(), {
+      pineconeIndex,
+      maxConcurrency: 5,
+      namespace,
+    });
+    return res.json({ namespace });
+  } catch (err) {
+    return res.status(400).json({ msg: "something wrong" });
+  }
 });
 
 export default router.handler({

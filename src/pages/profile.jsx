@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Authentication from "@/components/Profile/Authentication"
 import { useCookies } from "react-cookie";
 import { useWorkspaceContext } from "@/context/workspaceProvider";
+import DashboardLayout from "@/components/layouts/dashboard";
 
 const profile = () => {
   const {isLoggedIn, setIsLoggedIn} = useWorkspaceContext()
@@ -15,12 +16,12 @@ const profile = () => {
     }
   },[])
   return (
-    <div>
+    <DashboardLayout>
       {
         isLoggedIn ? <Profile />
         : <Authentication />
       }
-    </div>
+    </DashboardLayout>
   )
 }
 
