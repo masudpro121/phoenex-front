@@ -21,6 +21,8 @@ import { WorkspaceContext, useWorkspaceContext } from "../../../context/workspac
 
 import readIcon from "../../../assets/icon/read.svg";
 import quizIcon from "../../../assets/icon/quiz.svg";
+import { TbArrowForwardUp, TbArrowBackUp } from "react-icons/tb";
+import { FaCloudUploadAlt } from "react-icons/fa";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -296,7 +298,8 @@ export default function Header() {
           <button className="bg-[#F4F8FC] text-[16px] rounded-3xl py-3 px-3 max-w-[250px] whitespace-nowrap truncate">
             {file ? file.name : "No File Choosen"}
           </button>
-          <Image src={cloud} alt="cloud" width={30} height={20} />
+          {/* <Image src={cloud} alt="cloud" width={30} height={20} /> */}
+          <FaCloudUploadAlt size={30} />
           <input
             type="file"
             onChange={changeHandler}
@@ -308,17 +311,17 @@ export default function Header() {
         <div className="h-10 border-[#D8D8D8] border-r-[2px] rounded-ss rounded-es rounded-ee rounded-se " />
         <div className="flex items-center justify-between w-[20%]">
           <div className="flex items-center  justify-around w-[30%]">
-         
             <button onClick={() => router.back()} className="cursor-pointer">
-              <Image src={backwordIcon} alt="backwordIcon" width={30} height={20} />
+              <TbArrowBackUp size={28} />
             </button>
-            {nextRoute == null ? (
+            {/* {nextRoute == null ? (
               <></>
-            ) : (
-              <button onClick={() => router.push(nextRoute)} className="cursor-pointer">
-                <Image src={forwardIcon} alt="forwardIcon" width={30} height={20} />
-              </button>
-            )}
+            ) : ( */}
+            <button onClick={() => router.forward()} className="cursor-pointer">
+              {/* <Image src={forwardIcon} alt="forwardIcon" width={30} height={20} /> */}
+              <TbArrowForwardUp size={28} />
+            </button>
+            {/* )} */}
           </div>
           {/* <button className="relative flex bg-[#F4F8FC] rounded-full  h-[40px] w-[40px] items-center justify-center">
             <span className="absolute rounded-full mt-[-14px] ml-[-10px] border-[1px] border-white bg-[#2B8CFF] text-xs h-[16px] w-[16px] flex items-center justify-center text-white">
