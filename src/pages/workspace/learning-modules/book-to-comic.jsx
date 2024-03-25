@@ -79,7 +79,7 @@ const BookToComics = () => {
     fetch("/api/completion", {
       method: "POST",
       body: JSON.stringify({
-        input: `To generate a comic use ---------  after every 4 frames,  topic: "${summary.text}"`,
+        input: `write 20 frame comic story with this topic, separate every 4 frame with this separator ---------  ,  topic: "${summary.text}"`,
       }),
     })
       .then((res) => res.json())

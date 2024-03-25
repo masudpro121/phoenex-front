@@ -2,11 +2,12 @@ import { MyContext } from "@/pages/_app";
 import readyGenerateImage from "@/utils/readyGenerateImage";
 import React, { useContext, useEffect, useState } from "react";
 import ShowGeneratedImages from "./ShowGeneratedImages";
-import { Carousel } from 'react-responsive-carousel';
+import { Carousel } from "react-responsive-carousel";
 import axios from "axios";
 import { setComicStorage } from "@/utils/utils";
-import ReactAudioPlayer from 'react-audio-player';
+import ReactAudioPlayer from "react-audio-player";
 import { useWorkspaceContext } from "@/context/workspaceProvider";
+import RenderImage from "../Brandy/RenderImage";
 
 const ShowComic = ({ comic }) => {
   const [progress, setProgress] = useState("null");
@@ -17,8 +18,7 @@ const ShowComic = ({ comic }) => {
   const [itemGenerated, setItemGenerated] = useState([]);
   const [part, setPart] = useState(0);
   const [status, setStatus] = useState("working");
-  const [comicVoice, setComicVoice] = useState("")
-
+  const [comicVoice, setComicVoice] = useState("");
 
   // async function fetchData(prompt) {
   //   const response = await fetch("/api/dalle-generate-image", {
@@ -36,7 +36,6 @@ const ShowComic = ({ comic }) => {
   //   return results
   // }
 
-
   useEffect(() => {
     console.log(part, "part");
     const mycomic = JSON.parse(localStorage.getItem("comic"));
@@ -46,36 +45,40 @@ const ShowComic = ({ comic }) => {
       // setDalleImages(mycomic["d"+part])
     } else {
       if (comic.length > 1) {
-        fetch("/api/completion", {
-          method: "POST",
-          body: JSON.stringify({
-            input: `write a summarized prompt to generate ai image of this comic: "${comic[part]}, note: man and woman will be anime character"  `,
-            // input: `write a summarized prompt to generate ai image of this comic: "${comic[part]}, and woman character reference: https://s.mj.run/kz5ShFhTBNc, man character reference https://s.mj.run/uPlAWusJI4M"  `,
-          }),
-        })
-          .then((res) => res.json())
-          .then(async (res) => {
-            let prompt = ""
-            
-            if(mycomic.character && mycomic.characterPrompt){
-              prompt+= `${mycomic.character}, ${mycomic.characterPrompt}.  `
-            }
-            prompt+= res.choices[0]?.message?.content
-            const result = await readyGenerateImage(
-              prompt,
-              setProgress,
-              setProgressImage,
-              setGeneratedImages,
-              setStatus
-            );
-            // const dalleImages = await dalleImageGenerate(prompt)
-            // setComicStorage("d"+part, dalleImages)
-            // setDalleImages(dalleImages)
-            if (result == "wrong") {
-              console.log("something wrong");
-              setStatus("done");
-            }
-          });
+        const result = readyGenerateImage(
+          `${comic[part]},  --cref https://s.mj.run/cTwGUArBOvQ https://s.mj.run/B12QYz37Kls  --cw 0 --ar 7:4 --quality .25`,
+          setProgress,
+          setProgressImage,
+          setGeneratedImages,
+          setStatus
+        );
+        // fetch("/api/completion", {
+        //   method: "POST",
+        //   body: JSON.stringify({
+        //     input: `write a summarized prompt to generate ai image of this comic: "${comic[part]}"  `,
+        //     // input: `write a summarized prompt to generate ai image of this comic: "${comic[part]}, and woman character reference: https://s.mj.run/kz5ShFhTBNc, man character reference https://s.mj.run/uPlAWusJI4M"  `,
+        //   }),
+        // })
+        //   .then((res) => res.json())
+        //   .then(async (res) => {
+        //     let prompt = ""
+
+        //     if(mycomic.character && mycomic.characterPrompt){
+        //       prompt+= `${mycomic.character}, ${mycomic.characterPrompt}.  `
+        //     }
+        //     prompt+= ""+ res.choices[0]?.message?.content + ` --cref https://s.mj.run/p-m_jxMEzC4 https://s.mj.run/B12QYz37Kls --cw 0`
+        //     const result = await readyGenerateImage(
+        //       prompt,
+        //       setProgress,
+        //       setProgressImage,
+        //       setGeneratedImages,
+        //       setStatus
+        //     );
+        //     if (result == "wrong") {
+        //       console.log("something wrong");
+        //       setStatus("done");
+        //     }
+        //   });
       }
     }
   }, [part]);
@@ -96,34 +99,35 @@ const ShowComic = ({ comic }) => {
   }, [comic]);
 
   const handleComicVoice = () => {
-    setComicVoice("working")
+    setComicVoice("working");
     fetch("/api/text-to-speech", {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type' : 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        text: comic[part]
+        text: comic[part],
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setComicVoice(res.secure_url);
+        setComicStorage("voice" + part, res.secure_url);
       })
-    }).then(res=>res.json())
-    .then(res=>{
-      setComicVoice(res.secure_url)
-      setComicStorage('voice'+part,res.secure_url)
-    })
-    .catch(err=>{
-      console.log(err, 'err');
-    })
-  }
+      .catch((err) => {
+        console.log(err, "err");
+      });
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     const mycomic = JSON.parse(localStorage.getItem("comic"));
-    if(mycomic){
-      console.log(mycomic['voice'+part], 'dfjdslfj');
-      setComicVoice(mycomic['voice'+part])
+    if (mycomic) {
+      setComicVoice(mycomic["voice" + part]);
     }
-  },[part])
+  }, [part]);
 
-  console.log(comicVoice, 'comicVoice');
+
+
   return (
     <div className="flex flex-col items-center mt-5">
       <div className=" mx-5 sm:mx-0 w-full sm:min-w-[800px]  min-h-[200px] min-w rounded-md bg-slate-800 mt-2 mb-5 p-5 leading-10 text-white">
@@ -135,7 +139,9 @@ const ShowComic = ({ comic }) => {
       </div>
 
       <div className="flex gap-4 mt-3">
-        <div
+        {
+          part > 0 &&
+          <div
           className="bg-slate-700 text-white px-7 rounded-sm py-1 cursor-pointer"
           onClick={() => {
             if (status == "done") {
@@ -149,7 +155,10 @@ const ShowComic = ({ comic }) => {
         >
           Previous
         </div>
-        <div
+        }
+        {
+          part < comic.length-1 &&
+          <div
           className="bg-slate-700 text-white px-7 rounded-sm py-1 cursor-pointer"
           onClick={() => {
             if (status == "done") {
@@ -165,26 +174,25 @@ const ShowComic = ({ comic }) => {
         >
           Next
         </div>
+        }
       </div>
       <div className="mt-5">
-        {
-          comicVoice == "working" ? (
-            <div>Audio Generating..</div>
-          ) : comicVoice ? <ReactAudioPlayer
-          src={comicVoice}
-          autoPlay
-          controls
-        />
-        :  comic.length>1 && (
-          <div className="bg-slate-700 text-white rounded-xl px-3 py-1 cursor-pointer" onClick={handleComicVoice}>
-            Generate Comic voice
-          </div>
-        )
-           
-        }
-      
+        {comicVoice == "working" ? (
+          <div>Audio Generating..</div>
+        ) : comicVoice ? (
+          <ReactAudioPlayer src={comicVoice} autoPlay controls />
+        ) : (
+          comic.length > 1 && (
+            <div
+              className="bg-slate-700 text-white rounded-xl px-3 py-1 cursor-pointer"
+              onClick={handleComicVoice}
+            >
+              Generate Comic voice
+            </div>
+          )
+        )}
       </div>
-      <div className={status=="done" && "hidden"}>
+      <div className={status == "done" && "hidden"}>
         <ShowGeneratedImages
           progress={progress}
           progressImage={progressImage}
@@ -193,22 +201,33 @@ const ShowComic = ({ comic }) => {
           status={status}
         />
       </div>
-      
-      <div className={status=="working"? "hidden": "w-[80%] m-auto bg-slate-500 pt-10 px-10 mb-5 mt-5"}>
-        <Carousel 
-         showArrows={true} onChange={()=>{}} onClickItem={()=>{}} onClickThumb={()=>{}}
-         autoPlay={true} infiniteLoop={true}
-        >
-          {
-            generatedImages.map((img, i)=>{
+
+      <div
+        className={
+          status == "working"
+            ? "hidden"
+            : "w-[80%] m-auto  pt-10 px-10 mb-5 mt-5"
+        }
+      >
+        {generatedImages && (
+          <Carousel
+            showArrows={true}
+            onChange={() => {}}
+            onClickItem={() => {}}
+            onClickThumb={() => {}}
+            autoPlay={true}
+            infiniteLoop={true}
+          >
+            {generatedImages.map((img, i) => {
               return (
-                <div className="" key={'carousel'+i}>
+                <div className="" key={"carousel" + i}>
+                  {/* <RenderImage src={img} /> */}
                   <img className="max-h-[500px] object-contain" src={img} alt="" />
                 </div>
-              )
-            })
-          }
-        </Carousel>
+              );
+            })}
+          </Carousel>
+        )}
       </div>
       {/* <div>
         <h1 className="text-xl font-bold mt-10">Dall-E Images</h1>
