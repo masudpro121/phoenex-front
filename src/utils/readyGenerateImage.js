@@ -17,7 +17,7 @@ export default function readyGenerateImage(
       .then((res) => {
         
         console.log(res);
-        const msgId = res.data.id;
+        const msgId = res?.data?.id;
         setProgress(0);
         if (msgId) {
           setTimeout(() => {

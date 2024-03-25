@@ -1,5 +1,5 @@
 import { MyContext } from "@/pages/_app";
-import ReactDOM from "react-dom";
+import {createRoot} from "react-dom/client";
 import readyGenerateImage from "@/utils/readyGenerateImage";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import ShowGeneratedImages from "./ShowGeneratedImages";
@@ -22,10 +22,40 @@ const ShowComic = ({ comic }) => {
   const [comicVoice, setComicVoice] = useState("");
   const myCarouselRef = useRef(null);
 
+  // const reRenderImage = (images) => {
+  //   const refNode = myCarouselRef.current;
+  //   if (refNode) {
+  //     const newContent = (
+  //       <Carousel
+  //         showArrows={true}
+  //         onChange={() => {}}
+  //         onClickItem={() => {}}
+  //         onClickThumb={() => {}}
+  //         autoPlay={true}
+  //         infiniteLoop={true}
+  //       >
+  //         {images.map((img, i) => {
+  //           return (
+  //             <div className="" key={"carousel" + i}>
+  //               {/* <RenderImage src={img} /> */}
+  //               <img
+  //                 className="max-h-[500px] object-contain"
+  //                 src={img}
+  //                 alt=""
+  //               />
+  //             </div>
+  //           );
+  //         })}
+  //       </Carousel>
+  //     );
+  //     ReactDOM.render(newContent, refNode);
+  //   }
+  // };
+  
   const reRenderImage = (images) => {
     const refNode = myCarouselRef.current;
     if (refNode) {
-      const newContent = (
+      createRoot(refNode).render(
         <Carousel
           showArrows={true}
           onChange={() => {}}
@@ -48,10 +78,8 @@ const ShowComic = ({ comic }) => {
           })}
         </Carousel>
       );
-      ReactDOM.render(newContent, refNode);
     }
   };
-
   // async function fetchData(prompt) {
   //   const response = await fetch("/api/dalle-generate-image", {
   //         method: "POST",

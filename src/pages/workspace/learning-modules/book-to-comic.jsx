@@ -8,13 +8,16 @@ const BookToComics = () => {
   const [result, setResult] = useState("");
   const {namespace, setNamespace} = useWorkspaceContext()
   const [comic, setComic] = useState([]);
+  const [topics, setTopics] = useState([])
 
   useEffect(() => {
     const comic = JSON.parse(localStorage.getItem("comic"));
     if (comic && comic.text) {
       const splited = comic.text.split(/-{2,}/gm);
       setComic(splited);
-      
+    }
+    if(comic.topics){
+      setTopics(comic.topics.split(/\n/gm).filter(item => item !== ""))
     }
   }, []);
 
@@ -26,20 +29,11 @@ const BookToComics = () => {
       setNamespace(ns);
     }
   }, []);
-  function loadPdf() {
-    const form = new FormData();
-    form.append("file", file);
-    fetch("/api/store-pdf-to-vectordb", {
-      method: "POST",
-      body: form,
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res, "result");
-        localStorage.setItem("book-namespace", JSON.stringify(res.namespace));
-        setNamespace(res.namespace);
-      });
-  }
+
+  useEffect(()=>{
+    console.log(namespace, 'namespace');
+  },[namespace])
+
   const resetComic = () =>{
     localStorage.setItem("comic", JSON.stringify({}));
     setComic([])
@@ -73,13 +67,12 @@ const BookToComics = () => {
 
 
 
-  const generateComic = async () => {
-    resetComic()
-    const summary = await generateSummary();
+  const generateComic = async (query) => {
+    // const summary = await generateSummary();
     fetch("/api/completion", {
       method: "POST",
       body: JSON.stringify({
-        input: `write 20 frame comic story with this topic, separate every 4 frame with this separator ---------  ,  topic: "${summary.text}"`,
+        input: `write 20 frame comic story with this topic: ${query}, separate every 4 frame with this separator --------- `,
       }),
     })
       .then((res) => res.json())
@@ -89,6 +82,29 @@ const BookToComics = () => {
         setComic(text.split(/-{2,}/gm));
       });
   };
+
+
+  async function generateTopic() {
+    return new Promise((resolve, reject) => {
+      fetch("/api/query-pdf", {
+        method: "POST",
+        body: JSON.stringify({
+          namespace,
+          query: "Generate 20 topic from this",
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.result) {
+            console.log(res.result, 'topic');
+            setComicStorage("topics", res.result.text);
+            const mytopics = res.result.text.split(/\n/gm).filter(item => item !== "")
+            setTopics(mytopics)
+            generateComic(mytopics[0])
+          }
+        });
+    });
+  }
   return (
     <div className="overflow-auto">
       {namespace ? (
@@ -98,9 +114,9 @@ const BookToComics = () => {
               <div className="  gap-5 ">
                 <button
                   className="bg-blue-500 min-w-fit text-white px-3 py-2 rounded-md"
-                  onClick={generateComic}
+                  onClick={generateTopic}
                 >
-                  Generate Comic
+                  Generate
                 </button>
               </div>
             </div>
@@ -124,8 +140,23 @@ const BookToComics = () => {
               </div>
             )} */}
 
-            <div className="mt-4">
-              {comic.length>0 && <ShowComic comic={comic} />}
+            <div>
+              <h4 className="text-">Book Chapters</h4>
+              {
+                topics.length>1 &&
+                <select onChange={(e)=>generateComic(topics[e.target.value])}>
+                {
+                  topics.length > 1 && topics.map((t, i)=>{
+                    return(
+                      <option value={i}>{t}</option>
+                    )
+                  })
+                }
+              </select>
+              }
+              <div className="mt-4">
+                {comic.length>0 && <ShowComic comic={comic} />}
+              </div>
             </div>
           </div>
         </div>
