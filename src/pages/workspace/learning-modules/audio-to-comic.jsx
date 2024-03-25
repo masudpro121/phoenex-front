@@ -53,11 +53,13 @@ function AudioToComic() {
     }
   }, []);
 
+  
   const generateComic = async (topic) => {
+
     fetch("/api/completion", {
       method: "POST",
       body: JSON.stringify({
-        input: `To generate a comic use ---------  after every 4 frames,  topic: "${topic}", ${
+        input: `write 20 frame comic story with this topic, separate every 4 frame with this separator --------- ,  topic: "${topic}", ${
           prompt ? prompt : ""
         }. Give me output in ${language ? language : "english"} language`,
       }),
@@ -117,7 +119,7 @@ function AudioToComic() {
   const generateContent = () => {
     const comic = JSON.parse(localStorage.getItem("comic"));
     if (comic) {
-      generateComic(comic.transcript);
+      generateComic(comic.transcript.slice(0,1500));
       setComicStorage("characterPrompt", characterPrompt);
       setIsProgress(true);
     }
@@ -177,13 +179,7 @@ function AudioToComic() {
                         />
                       </>
                     )}
-                    <input
-                      value={characterPrompt}
-                      onChange={(e) => setCharacterPrompt(e.target.value)}
-                      className="outline-none border-[1px] rounded-md px-2 py-1 mt-2"
-                      type="text"
-                      placeholder="What character will do?"
-                    />
+                    
                   </div>
                 )}
                 {willUploadCharacter == "default" && (
@@ -208,8 +204,7 @@ function AudioToComic() {
                 {isVoiceUploaded &&
                   (willUploadCharacter == "no" ||
                     (willUploadCharacter == "yes" &&
-                      uploadedCharacter &&
-                      characterPrompt)) && (
+                      uploadedCharacter)) && (
                     <div>
                       <button
                         onClick={generateContent}

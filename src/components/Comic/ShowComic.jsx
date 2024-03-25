@@ -1,6 +1,7 @@
 import { MyContext } from "@/pages/_app";
+import ReactDOM from "react-dom";
 import readyGenerateImage from "@/utils/readyGenerateImage";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import ShowGeneratedImages from "./ShowGeneratedImages";
 import { Carousel } from "react-responsive-carousel";
 import axios from "axios";
@@ -19,6 +20,37 @@ const ShowComic = ({ comic }) => {
   const [part, setPart] = useState(0);
   const [status, setStatus] = useState("working");
   const [comicVoice, setComicVoice] = useState("");
+  const myCarouselRef = useRef(null);
+
+  const reRenderImage = (images) => {
+    const refNode = myCarouselRef.current;
+    if (refNode) {
+      const newContent = (
+        <Carousel
+          showArrows={true}
+          onChange={() => {}}
+          onClickItem={() => {}}
+          onClickThumb={() => {}}
+          autoPlay={true}
+          infiniteLoop={true}
+        >
+          {images.map((img, i) => {
+            return (
+              <div className="" key={"carousel" + i}>
+                {/* <RenderImage src={img} /> */}
+                <img
+                  className="max-h-[500px] object-contain"
+                  src={img}
+                  alt=""
+                />
+              </div>
+            );
+          })}
+        </Carousel>
+      );
+      ReactDOM.render(newContent, refNode);
+    }
+  };
 
   // async function fetchData(prompt) {
   //   const response = await fetch("/api/dalle-generate-image", {
@@ -45,13 +77,21 @@ const ShowComic = ({ comic }) => {
       // setDalleImages(mycomic["d"+part])
     } else {
       if (comic.length > 1) {
+        let prompt = "";
+
+        if (mycomic.character) {
+          prompt += `${comic[part]}, --cref ${mycomic.character} --cw 50 --ar 7:4`;
+        }else{
+          prompt += `${comic[part]},  --cref https://s.mj.run/cTwGUArBOvQ https://s.mj.run/B12QYz37Kls  --cw 50 --ar 7:4`
+        }
         const result = readyGenerateImage(
-          `${comic[part]},  --cref https://s.mj.run/cTwGUArBOvQ https://s.mj.run/B12QYz37Kls  --cw 0 --ar 7:4 --quality .25`,
+          prompt,
           setProgress,
           setProgressImage,
           setGeneratedImages,
           setStatus
         );
+        
         // fetch("/api/completion", {
         //   method: "POST",
         //   body: JSON.stringify({
@@ -87,6 +127,7 @@ const ShowComic = ({ comic }) => {
     if (generatedImages.length) {
       setComicStorage(part, generatedImages);
       setStatus("done");
+      reRenderImage(generatedImages);
     }
   }, [generatedImages]);
 
@@ -126,8 +167,6 @@ const ShowComic = ({ comic }) => {
     }
   }, [part]);
 
-
-
   return (
     <div className="flex flex-col items-center mt-5">
       <div className=" mx-5 sm:mx-0 w-full sm:min-w-[800px]  min-h-[200px] min-w rounded-md bg-slate-800 mt-2 mb-5 p-5 leading-10 text-white">
@@ -139,42 +178,40 @@ const ShowComic = ({ comic }) => {
       </div>
 
       <div className="flex gap-4 mt-3">
-        {
-          part > 0 &&
+        {part > 0 && (
           <div
-          className="bg-slate-700 text-white px-7 rounded-sm py-1 cursor-pointer"
-          onClick={() => {
-            if (status == "done") {
-              setPart((current) => (current > 0 ? current - 1 : 0));
-              if (!comicImages[part - 1]) {
-                setProgress(0);
-                setStatus("working");
+            className="bg-slate-700 text-white px-7 rounded-sm py-1 cursor-pointer"
+            onClick={() => {
+              if (status == "done") {
+                setPart((current) => (current > 0 ? current - 1 : 0));
+                if (!comicImages[part - 1]) {
+                  setProgress(0);
+                  setStatus("working");
+                }
               }
-            }
-          }}
-        >
-          Previous
-        </div>
-        }
-        {
-          part < comic.length-1 &&
+            }}
+          >
+            Previous
+          </div>
+        )}
+        {part < comic.length - 1 && (
           <div
-          className="bg-slate-700 text-white px-7 rounded-sm py-1 cursor-pointer"
-          onClick={() => {
-            if (status == "done") {
-              setPart((current) =>
-                current < comic.length - 1 ? current + 1 : comic.length - 1
-              );
-              if (!comicImages[part + 1]) {
-                setProgress(0);
-                setStatus("working");
+            className="bg-slate-700 text-white px-7 rounded-sm py-1 cursor-pointer"
+            onClick={() => {
+              if (status == "done") {
+                setPart((current) =>
+                  current < comic.length - 1 ? current + 1 : comic.length - 1
+                );
+                if (!comicImages[part + 1]) {
+                  setProgress(0);
+                  setStatus("working");
+                }
               }
-            }
-          }}
-        >
-          Next
-        </div>
-        }
+            }}
+          >
+            Next
+          </div>
+        )}
       </div>
       <div className="mt-5">
         {comicVoice == "working" ? (
@@ -210,23 +247,29 @@ const ShowComic = ({ comic }) => {
         }
       >
         {generatedImages && (
-          <Carousel
-            showArrows={true}
-            onChange={() => {}}
-            onClickItem={() => {}}
-            onClickThumb={() => {}}
-            autoPlay={true}
-            infiniteLoop={true}
-          >
-            {generatedImages.map((img, i) => {
-              return (
-                <div className="" key={"carousel" + i}>
-                  {/* <RenderImage src={img} /> */}
-                  <img className="max-h-[500px] object-contain" src={img} alt="" />
-                </div>
-              );
-            })}
-          </Carousel>
+          <div ref={myCarouselRef}>
+            <Carousel
+              showArrows={true}
+              onChange={() => {}}
+              onClickItem={() => {}}
+              onClickThumb={() => {}}
+              autoPlay={true}
+              infiniteLoop={true}
+            >
+              {generatedImages.map((img, i) => {
+                return (
+                  <div className="" key={"carousel" + i}>
+                    {/* <RenderImage src={img} /> */}
+                    <img
+                      className="max-h-[500px] object-contain"
+                      src={img}
+                      alt=""
+                    />
+                  </div>
+                );
+              })}
+            </Carousel>
+          </div>
         )}
       </div>
       {/* <div>
