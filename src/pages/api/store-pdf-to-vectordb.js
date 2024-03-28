@@ -9,6 +9,8 @@ import {
   RecursiveCharacterTextSplitter,
 } from "langchain/text_splitter";
 import { Document } from "@langchain/core/documents";
+import BookModel from "@/models/BookModel";
+import dbConnect from "@/libs/dbConnect";
 const pdf = require("pdf-parse");
 
 const fs = require("fs");
@@ -29,6 +31,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 // });
 
 router.use(upload.single("file")).post(async (req, res) => {
+  await dbConnect()
   try {
     const docs = await pdf(req.file.buffer);
     // if(docs){
@@ -66,7 +69,6 @@ router.use(upload.single("file")).post(async (req, res) => {
       new Document({ pageContent: docs.text }),
     ]);
 
-    console.log(splitDocs, "split docs");
     // Reduce the size of the metadata
     const reducedDocs = splitDocs.map((doc) => {
       let metadata = { ...doc.metadata };
@@ -78,11 +80,17 @@ router.use(upload.single("file")).post(async (req, res) => {
       });
     });
 
-    await PineconeStore.fromDocuments(reducedDocs, new OpenAIEmbeddings(), {
+    const stored =  await PineconeStore.fromDocuments(reducedDocs, new OpenAIEmbeddings(), {
       pineconeIndex,
       maxConcurrency: 5,
       namespace,
     });
+    
+    const book = new BookModel({
+      name: req.file.originalname,
+      refId: namespace
+    })
+    await book.save()
     return res.json({ namespace });
   } catch (err) {
     return res.status(400).json({ msg: "something wrong" });

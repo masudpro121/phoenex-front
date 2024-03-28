@@ -165,3 +165,7 @@ select {
   background-color: #F4F8FC !important;
   border-radius: 10px !important;
 }
+
+select{
+  @apply border-blue-100 rounded-md 
+}

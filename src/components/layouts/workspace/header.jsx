@@ -157,6 +157,7 @@ export default function Header() {
     inputRef.current.click();
   };
   function loadPdf(f) {
+    localStorage.setItem('comic', JSON.stringify({}))
     const form = new FormData();
     form.append("file", f);
     return fetch("/api/store-pdf-to-vectordb", {

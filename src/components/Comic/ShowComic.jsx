@@ -1,5 +1,5 @@
 import { MyContext } from "@/pages/_app";
-import {createRoot} from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import readyGenerateImage from "@/utils/readyGenerateImage";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import ShowGeneratedImages from "./ShowGeneratedImages";
@@ -10,7 +10,7 @@ import ReactAudioPlayer from "react-audio-player";
 import { useWorkspaceContext } from "@/context/workspaceProvider";
 import RenderImage from "../Brandy/RenderImage";
 
-const ShowComic = ({ comic }) => {
+const ShowComic = ({ comic, topicId }) => {
   const [progress, setProgress] = useState("null");
   const [progressImage, setProgressImage] = useState("");
   const [generatedImages, setGeneratedImages] = useState([]);
@@ -22,36 +22,6 @@ const ShowComic = ({ comic }) => {
   const [comicVoice, setComicVoice] = useState("");
   const myCarouselRef = useRef(null);
 
-  // const reRenderImage = (images) => {
-  //   const refNode = myCarouselRef.current;
-  //   if (refNode) {
-  //     const newContent = (
-  //       <Carousel
-  //         showArrows={true}
-  //         onChange={() => {}}
-  //         onClickItem={() => {}}
-  //         onClickThumb={() => {}}
-  //         autoPlay={true}
-  //         infiniteLoop={true}
-  //       >
-  //         {images.map((img, i) => {
-  //           return (
-  //             <div className="" key={"carousel" + i}>
-  //               {/* <RenderImage src={img} /> */}
-  //               <img
-  //                 className="max-h-[500px] object-contain"
-  //                 src={img}
-  //                 alt=""
-  //               />
-  //             </div>
-  //           );
-  //         })}
-  //       </Carousel>
-  //     );
-  //     ReactDOM.render(newContent, refNode);
-  //   }
-  // };
-  
   const reRenderImage = (images) => {
     const refNode = myCarouselRef.current;
     if (refNode) {
@@ -80,24 +50,10 @@ const ShowComic = ({ comic }) => {
       );
     }
   };
-  // async function fetchData(prompt) {
-  //   const response = await fetch("/api/dalle-generate-image", {
-  //         method: "POST",
-  //         body: JSON.stringify({
-  //           prompt
-  //         }),
-  //       })
-  //       const result = await response.json()
-  //   return result[0]?.url;
-  // }
-  // const dalleImageGenerate = async(prompt) =>{
-  //   const promises = [fetchData(prompt), fetchData(prompt), fetchData(prompt),]
-  //   const results = await Promise.all(promises);
-  //   return results
-  // }
+  
 
   useEffect(() => {
-    console.log(part, "part");
+    console.log(part, "partssss");
     const mycomic = JSON.parse(localStorage.getItem("comic"));
     if (mycomic && mycomic[part]) {
       setStatus("done");
@@ -108,9 +64,9 @@ const ShowComic = ({ comic }) => {
         let prompt = "";
 
         if (mycomic.character) {
-          prompt += `${comic[part]}, --cref ${mycomic.character} --cw 50 --ar 7:4`;
-        }else{
-          prompt += `${comic[part]},  --cref https://s.mj.run/cTwGUArBOvQ https://s.mj.run/B12QYz37Kls  --cw 50 --ar 7:4`
+          prompt += `${comic[part]}, --quality .25 --cref ${mycomic.character} --cw 50 --ar 7:4`;
+        } else {
+          prompt += `${comic[part]},  --quality .25 --cref https://s.mj.run/cTwGUArBOvQ https://s.mj.run/B12QYz37Kls  --cw 50 --ar 7:4`;
         }
         const result = readyGenerateImage(
           prompt,
@@ -119,34 +75,6 @@ const ShowComic = ({ comic }) => {
           setGeneratedImages,
           setStatus
         );
-        
-        // fetch("/api/completion", {
-        //   method: "POST",
-        //   body: JSON.stringify({
-        //     input: `write a summarized prompt to generate ai image of this comic: "${comic[part]}"  `,
-        //     // input: `write a summarized prompt to generate ai image of this comic: "${comic[part]}, and woman character reference: https://s.mj.run/kz5ShFhTBNc, man character reference https://s.mj.run/uPlAWusJI4M"  `,
-        //   }),
-        // })
-        //   .then((res) => res.json())
-        //   .then(async (res) => {
-        //     let prompt = ""
-
-        //     if(mycomic.character && mycomic.characterPrompt){
-        //       prompt+= `${mycomic.character}, ${mycomic.characterPrompt}.  `
-        //     }
-        //     prompt+= ""+ res.choices[0]?.message?.content + ` --cref https://s.mj.run/p-m_jxMEzC4 https://s.mj.run/B12QYz37Kls --cw 0`
-        //     const result = await readyGenerateImage(
-        //       prompt,
-        //       setProgress,
-        //       setProgressImage,
-        //       setGeneratedImages,
-        //       setStatus
-        //     );
-        //     if (result == "wrong") {
-        //       console.log("something wrong");
-        //       setStatus("done");
-        //     }
-        //   });
       }
     }
   }, [part]);
@@ -195,6 +123,31 @@ const ShowComic = ({ comic }) => {
     }
   }, [part]);
 
+  useEffect(() => {
+    console.log(topicId, "topic id");
+    const mycomic = JSON.parse(localStorage.getItem("comic"));
+    if (mycomic.topicId != topicId) {
+      setComicStorage("topicId", topicId)
+      let prompt = "";
+      if (mycomic.character) {
+        prompt += `${comic[part]}, --quality .25 --cref ${mycomic.character} --cw 50 --ar 7:4`;
+      } else {
+        prompt += `${comic[part]},  --quality .25 --cref https://s.mj.run/cTwGUArBOvQ https://s.mj.run/B12QYz37Kls  --cw 50 --ar 7:4`;
+      }
+      setStatus("");
+      setGeneratedImages([]);
+      setProgressImage("");
+      
+      readyGenerateImage(
+        prompt,
+        setProgress,
+        setProgressImage,
+        setGeneratedImages,
+        setStatus
+      );
+    }
+  }, [topicId]);
+ 
   return (
     <div className="flex flex-col items-center mt-5">
       <div className=" mx-5 sm:mx-0 w-full sm:min-w-[800px]  min-h-[200px] min-w rounded-md bg-slate-800 mt-2 mb-5 p-5 leading-10 text-white">
@@ -211,7 +164,7 @@ const ShowComic = ({ comic }) => {
             className="bg-slate-700 text-white px-7 rounded-sm py-1 cursor-pointer"
             onClick={() => {
               if (status == "done") {
-                setPart((current) => (current > 0 ? current - 1 : 0));
+                setPart((current) => current - 1);
                 if (!comicImages[part - 1]) {
                   setProgress(0);
                   setStatus("working");
@@ -227,9 +180,7 @@ const ShowComic = ({ comic }) => {
             className="bg-slate-700 text-white px-7 rounded-sm py-1 cursor-pointer"
             onClick={() => {
               if (status == "done") {
-                setPart((current) =>
-                  current < comic.length - 1 ? current + 1 : comic.length - 1
-                );
+                setPart((current) => current + 1);
                 if (!comicImages[part + 1]) {
                   setProgress(0);
                   setStatus("working");
